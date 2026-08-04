@@ -49,6 +49,7 @@ exports[`SkyBox > renders with objects 1`] = `
       style="width: 100px; height: 100px; position: absolute; left: calc(50% - 50px); top: calc(50% - 50px);"
     >
       <img
+        alt=""
         src="bar.svg"
         style="width: 100%; height: 100%;"
       />
