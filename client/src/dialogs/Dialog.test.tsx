@@ -8,6 +8,7 @@ describe('Dialog', () => {
     const { getByRole } = render(<Dialog>{() => <Contents />}</Dialog>)
 
     expect(getByRole('dialog')).toBeInTheDocument()
+    expect(getByRole('dialog')).toHaveAttribute('aria-modal', 'true')
   })
 
   // These can't be tested right now because it CSSTransition is mocked

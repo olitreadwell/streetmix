@@ -69,7 +69,7 @@ export function Dialog({ children }: DialogProps) {
       <div className="dialog-box-container" ref={nodeRef}>
         <div className="dialog-box-backdrop" />
         <div className="dialog-box-display-area">
-          <div className="dialog-box" role="dialog" ref={dialogEl}>
+          <div className="dialog-box" role="dialog" aria-modal ref={dialogEl}>
             <CloseButton onClick={handleClose} />
             {children(handleClose)}
           </div>
