@@ -36,6 +36,7 @@
 - `2026-08-26` fork PR `#10` `fix/add-missing-img-alt-attributes` (a11y) — pr-opened on fork, awaiting Oli
 - `2026-08-26` `fix/remove-sensitive-token-logging` (security) — fork PR `#1`, closed on the fork
 - `2026-09-09` `#3751` dialog a11y (aria-modal + accessible name) — fork PR `#17` pr-opened; SCOPED to avoid the rejected focus-trap approach (see Mined gaps)
+- `2026-09-09` duplicate guard: a later streetmix cycle opened `fix/dialog-aria-modal` (aria-modal only) as fork PR `#18`, verified + CI green, then closed as superseded by `#17` — PR `#17` already covers the same issue plus the accessible name. Rule: issue `#3751` is covered by fork PR `#17`; do not re-pick it.
 
 ## Mined gaps
 
