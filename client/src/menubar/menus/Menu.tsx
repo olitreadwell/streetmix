@@ -136,13 +136,12 @@ function getMenuPosition(
     }
   }
 
-  // Get top position
-  // Top of menu aligns with bottom of menu item
-  const top = menuItemNode.offsetTop + menuItemNode.offsetHeight
-
+  // We're no longer calculating `top` because it's just going to be the top of
+  // the menus-container element. This won't handle if the menu wraps on mobile,
+  // but that UI needs to be replaced anyway.
   return {
     left,
-    top,
+    top: 0,
   }
 }
 
