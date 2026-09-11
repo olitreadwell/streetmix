@@ -83,6 +83,7 @@ export function PaletteItem({ item }: PaletteItemProps) {
           <img
             className="palette-item-image"
             src={thumbnail}
+            alt={getLabel(item)}
             draggable={false}
           />
         </button>

@@ -35,7 +35,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
       <div className="popup-control-row">
         <Tooltip label={leftLabel} placement="left" role="label">
           <span className="popup-control-icon">
-            <img src={leftSlopeIcon} className="tabler-icon" />
+            <img src={leftSlopeIcon} alt="" className="tabler-icon" />
           </span>
         </Tooltip>
         <SlopeControlTemp
@@ -50,7 +50,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
       <div className="popup-control-row">
         <Tooltip label={rightLabel} placement="left" role="label">
           <span className="popup-control-icon">
-            <img src={rightSlopeIcon} className="tabler-icon" />
+            <img src={rightSlopeIcon} alt="" className="tabler-icon" />
           </span>
         </Tooltip>
         <SlopeControlTemp
