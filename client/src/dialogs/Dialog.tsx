@@ -13,7 +13,7 @@
  *
  * Only one modal window is shown at a time. Nested modals aren't supported.
  */
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useId } from 'react'
 import { useDispatch } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 
@@ -34,6 +34,25 @@ export function Dialog({ children }: DialogProps) {
   const nodeRef = useRef(null)
   const [appear, setAppear] = useState(true)
   const dispatch = useDispatch()
+  const titleId = useId()
+  const [dialogNamed, setDialogNamed] = useState(false)
+
+  // Give the dialog an accessible name so assistive technology announces
+  // which dialog is open. It links aria-labelledby to the first heading
+  // found inside the dialog box, so individual dialogs don't each need to
+  // supply their own id. Dialogs without a heading keep their previous,
+  // unnamed behaviour.
+  useEffect(() => {
+    const heading = dialogEl.current?.querySelector<HTMLElement>(
+      'h1, h2, h3, h4, h5, h6'
+    )
+    if (!heading) return
+
+    if (!heading.id) {
+      heading.id = titleId
+    }
+    setDialogNamed(true)
+  }, [titleId])
 
   // Set up handler to close dialogs when clicking outside of it
   useOnClickOutside(dialogEl, handleClose)
@@ -69,7 +88,13 @@ export function Dialog({ children }: DialogProps) {
       <div className="dialog-box-container" ref={nodeRef}>
         <div className="dialog-box-backdrop" />
         <div className="dialog-box-display-area">
-          <div className="dialog-box" role="dialog" ref={dialogEl}>
+          <div
+            className="dialog-box"
+            role="dialog"
+            aria-modal={true}
+            aria-labelledby={dialogNamed ? titleId : undefined}
+            ref={dialogEl}
+          >
             <CloseButton onClick={handleClose} />
             {children(handleClose)}
           </div>
