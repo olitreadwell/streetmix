@@ -48,7 +48,11 @@ export function SkyObjects({ objects = [] }: SkyObjectsProps) {
               classNames="sky-background-object"
             >
               <div ref={ref} style={style}>
-                <img src={img.src} style={{ width: '100%', height: '100%' }} />
+                <img
+                  src={img.src}
+                  alt=""
+                  style={{ width: '100%', height: '100%' }}
+                />
               </div>
             </CSSTransition>
           )

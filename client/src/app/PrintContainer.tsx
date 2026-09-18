@@ -72,7 +72,9 @@ export function PrintContainer() {
     <div className="print-container">
       {error && <p>{error}</p>}
       {!error && !printImage && <p>Preparing print...</p>}
-      {!error && printImage !== null && <img src={printImage} />}
+      {!error && printImage !== null && (
+        <img src={printImage} alt="Street plan" />
+      )}
     </div>
   )
 }
