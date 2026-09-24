@@ -27,7 +27,7 @@
 ## Issue-area health
 
 - 200 open issues; the majority are stale "segment ideas" from 2019-2021 (no maintainer response) — not viable picks
-- `#3771` Hardcoded Cookie-Session Secret fallback (`seger handrail`) when `COOKIE_SESSION_SECRET` unset (2026-09-12, open, author 28Hus, no maintainer comment) — verifiable security hardening; fix would fail-closed when secret missing
+- `#3771` Hardcoded Cookie-Session Secret fallback (`seger handrail`) when `COOKIE_SESSION_SECRET` unset (2026-09-12, open, author 28Hus, no maintainer comment) — verifiable security hardening; fix fails closed when secret missing in production — status: pr-opened — fork PR `https://github.com/olitreadwell/streetmix/pull/26` head `fix/require-cookie-session-secret`
 - `#2227` re-roll of scattered items (`good first contribution`) — deferred feature, too big
 - closed-unmerged `#3629` (bmortimer focus-trap/aria-modal): louh liked the trap but flagged focus-restore + h1-focus concerns; steered toward native `<dialog>` / Radix-UI (Radix is already a client dependency); outcome = hand-rolled focus-trap approach REJECTED
 
@@ -37,6 +37,8 @@
 - `2026-08-26` `fix/remove-sensitive-token-logging` (security) — fork PR `#1`, closed on the fork
 - `2026-09-09` `#3751` dialog a11y (aria-modal + accessible name) — fork PR `#17` pr-opened; SCOPED to avoid the rejected focus-trap approach (see Mined gaps)
 - `2026-09-09` duplicate guard: a later streetmix cycle opened `fix/dialog-aria-modal` (aria-modal only) as fork PR `#18`, verified + CI green, then closed as superseded by `#17` — PR `#17` already covers the same issue plus the accessible name. Rule: issue `#3751` is covered by fork PR `#17`; do not re-pick it.
+
+- `2026-09-24` `#3771` hardcoded cookie-session secret fallback (security) — fork PR `#26` `fix/require-cookie-session-secret` pr-opened; fail-closed in production, dev-only fallback otherwise, doc updated
 
 ## Mined gaps
 
