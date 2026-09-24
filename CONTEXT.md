@@ -38,7 +38,7 @@
 - `2026-09-09` `#3751` dialog a11y (aria-modal + accessible name) — fork PR `#17` pr-opened; SCOPED to avoid the rejected focus-trap approach (see Mined gaps)
 - `2026-09-09` duplicate guard: a later streetmix cycle opened `fix/dialog-aria-modal` (aria-modal only) as fork PR `#18`, verified + CI green, then closed as superseded by `#17` — PR `#17` already covers the same issue plus the accessible name. Rule: issue `#3751` is covered by fork PR `#17`; do not re-pick it.
 
-- `2026-09-24` `#3771` hardcoded cookie-session secret fallback (security) — fork PR `#26` `fix/require-cookie-session-secret` pr-opened; fail-closed in production, dev-only fallback otherwise, doc updated
+- `2026-09-24` `#3771` hardcoded cookie-session secret fallback (security) — fork PR `#26` `fix/require-cookie-session-secret` pr-opened; fail-closed in production, dev-only fallback otherwise, doc updated; CI: pull_request-event run fully green (Lint + Unit/integration Node 22/24/26 + E2E) + Conventional commits pass; only fork-secret env-artifact reds (Argos ARGOS_TOKEN, duplicate push-event `cypress --record` without CYPRESS_RECORD_KEY)
 
 ## Mined gaps
 
