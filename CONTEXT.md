@@ -1,6 +1,6 @@
 # streetmix/streetmix context
 
-> refreshed 2026-09-09 | upstream default: main @ 126c22e2c (fork synced)
+> refreshed 2026-09-24 | upstream default: main @ 2e4544144 (fork synced; +22 commits since last refresh)
 
 ## Identity & policies
 
@@ -27,7 +27,7 @@
 ## Issue-area health
 
 - 200 open issues; the majority are stale "segment ideas" from 2019-2021 (no maintainer response) — not viable picks
-- `#3751` Modal dialogs missing ARIA + focus management (2026-08-08, open, unassigned, no comments) — concrete, verifiable; the relevant gap
+- `#3771` Hardcoded Cookie-Session Secret fallback (`seger handrail`) when `COOKIE_SESSION_SECRET` unset (2026-09-12, open, author 28Hus, no maintainer comment) — verifiable security hardening; fix would fail-closed when secret missing
 - `#2227` re-roll of scattered items (`good first contribution`) — deferred feature, too big
 - closed-unmerged `#3629` (bmortimer focus-trap/aria-modal): louh liked the trap but flagged focus-restore + h1-focus concerns; steered toward native `<dialog>` / Radix-UI (Radix is already a client dependency); outcome = hand-rolled focus-trap approach REJECTED
 
