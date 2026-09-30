@@ -1,6 +1,6 @@
 # streetmix/streetmix context
 
-> refreshed 2026-09-25 | upstream default: main @ f17578eec (fork synced)
+> refreshed 2026-09-30 | upstream default: main @ f17578eec (fork synced; upstream head re-verified unchanged this run)
 
 ## Identity & policies
 
@@ -40,8 +40,11 @@
 
 - `2026-09-24` `#3771` hardcoded cookie-session secret fallback (security) — fork PR `#26` `fix/require-cookie-session-secret` pr-opened; fail-closed in production, dev-only fallback otherwise, doc updated; CI: pull_request-event run fully green (Lint + Unit/integration Node 22/24/26 + E2E) + Conventional commits pass; only fork-secret env-artifact reds (Argos ARGOS_TOKEN, duplicate push-event `cypress --record` without CYPRESS_RECORD_KEY)
 - `2026-09-25 a11y` street-name rename is mouse-only (`StreetName` div/span has `onClick` but no `role`/`tabindex`/keyboard handler) — fork PR `#27` `fix/street-name-keyboard-rename` pr-opened, base fork `main`, single commit; local vitest 11-pass + full client suite 554 pass, eslint + tsc clean; fork CI substantive gates green (Lint, Conventional commits, Unit+integration Node 22/24/26); Argos take-screenshots + Cypress E2E red = fork-secret env artifacts (ARGOS_TOKEN / CYPRESS_RECORD_KEY)
+- `2026-09-30 a11y` geotag "clear search" control is a non-focusable `<span>` with `title`+`onClick` (`client/src/dialogs/Geotag/GeoSearch.tsx`) — fork PR `#28` `fix/geotag-clear-search-button` pr-opened, base fork `main`, single commit; TDD-verified (new tests fail 3/4 on original, pass 4/4 with fix), full `npm run vitest:ci` 118 files / 636 pass, scoped eslint+prettier+stylelint clean; fork CI: see PR (fork-secret env artifacts expected red)
 
 ## Mined gaps
+
+- `2026-09-30 a11y` `client/src/dialogs/Geotag/GeoSearch.tsx` renders the input-clearing affordance (shown once `inputValue` is non-empty) as a `<span>` carrying `title="Clear search"` and an `onClick`; it has no `role`, no `tabIndex`, no keyboard handler, so a keyboard-only user can type a query but cannot reach or activate clear (WCAG 2.1.1 / 4.1.2). Repro: type in the geotag location field, then Tab — focus skips the "×" control; screen readers see only an unattached text fragment. Expected: render as `<button type="button">` with `aria-label` (keep `title` for mouse tooltip), reset the button's default appearance in CSS so visuals are unchanged, and add a keyboard-activation regression test. Dedupe: no upstream issue/PR for this control (searched "clear search", "geotag", "keyboard", "accessibility"); distinct from fork PRs `#10` (img alt), `#17` (dialog), `#26` (cookie secret), `#27` (street-name keyboard). — status: pr-opened — fork PR `https://github.com/olitreadwell/streetmix/pull/28` head `fix/geotag-clear-search-button` @ `2d2799e5` (base fork `main`)
 
 - `2026-09-25 a11y` Editable `client/src/streets/StreetName.tsx` renders the rename target as `role`-less `<div>`/`<span>` with `onClick` but no `tabindex` or keyboard activation, so keyboard-only users cannot rename a street (WCAG 2.1.1 / 4.1.2). Repro: focus moves over the street-nameplate; Enter/Space does nothing. Expected: when `editable`, present as `role="button"`, `tabIndex={0}`, and activate the existing `onClick` on Enter/Space; keep the read-only rendering (gallery, welcome panel) unchanged; add regression tests asserting role/focusability and Enter/Space activation. Dedupe: no upstream issue/PR for street-name keyboard/focusable/rename; distinct from prior fork PRs `#10` (img alt), `#17` (dialog), `#26` (cookie secret). — status: pr-opened — fork PR `https://github.com/olitreadwell/streetmix/pull/27` head `fix/street-name-keyboard-rename` @ `a40caa47b` (base fork `main`)
 
