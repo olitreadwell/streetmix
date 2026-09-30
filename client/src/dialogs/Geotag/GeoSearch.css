@@ -22,10 +22,16 @@
   position: absolute;
   top: var(--v-buffer);
   right: var(--h-buffer);
+  appearance: none;
   padding: 8px;
+  border: 0;
   width: 24px;
   text-align: center;
   cursor: pointer;
+  color: inherit;
+  background-color: transparent;
+  font: inherit;
+  line-height: 1;
 
   &:hover {
     color: var(--warning-color);
