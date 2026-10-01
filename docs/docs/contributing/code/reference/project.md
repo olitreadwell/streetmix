@@ -22,7 +22,7 @@ We **pin** our dependencies, which means that we specify exact dependency versio
 
 Because Streetmix is an application, and it's not intended to be imported by other applications, we don't need the flexibility that comes from using version ranges. As a result, all developers, and any deployment environments, are running the same code for any given commit. This consistency makes obscure bugs easier to track down and resolve.
 
-The tradeoff is that this introduces "upgrade noise". We are currently using [Dependabot](https://dependabot.com/), an automated service that creates pull requests whenever a dependency has updated. Because we have pinned dependencies, these services create a new branch and opens a new pull request for _every_ depedency update, no matter how minor. We may turn these services off or change its update frequency when we need to limit the noise.
+The tradeoff is that this introduces "upgrade noise". We are currently using [Dependabot](https://dependabot.com/), an automated service that creates pull requests whenever a dependency has updated. Because we have pinned dependencies, these services create a new branch and opens a new pull request for _every_ dependency update, no matter how minor. We may turn these services off or change its update frequency when we need to limit the noise.
 
 **References**
 
