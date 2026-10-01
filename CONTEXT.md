@@ -1,6 +1,6 @@
 # streetmix/streetmix context
 
-> refreshed 2026-09-30 | upstream default: main @ f17578eec (fork synced; upstream head re-verified unchanged this run)
+> refreshed 2026-10-01 | upstream default: main @ f17578eec (fork synced; upstream head re-verified unchanged this run)
 
 ## Identity & policies
 
@@ -41,6 +41,8 @@
 - `2026-09-24` `#3771` hardcoded cookie-session secret fallback (security) — fork PR `#26` `fix/require-cookie-session-secret` pr-opened; fail-closed in production, dev-only fallback otherwise, doc updated; CI: pull_request-event run fully green (Lint + Unit/integration Node 22/24/26 + E2E) + Conventional commits pass; only fork-secret env-artifact reds (Argos ARGOS_TOKEN, duplicate push-event `cypress --record` without CYPRESS_RECORD_KEY)
 - `2026-09-25 a11y` street-name rename is mouse-only (`StreetName` div/span has `onClick` but no `role`/`tabindex`/keyboard handler) — fork PR `#27` `fix/street-name-keyboard-rename` pr-opened, base fork `main`, single commit; local vitest 11-pass + full client suite 554 pass, eslint + tsc clean; fork CI substantive gates green (Lint, Conventional commits, Unit+integration Node 22/24/26); Argos take-screenshots + Cypress E2E red = fork-secret env artifacts (ARGOS_TOKEN / CYPRESS_RECORD_KEY)
 - `2026-09-30 a11y` geotag "clear search" control is a non-focusable `<span>` with `title`+`onClick` (`client/src/dialogs/Geotag/GeoSearch.tsx`) — fork PR `#28` `fix/geotag-clear-search-button` pr-opened, base fork `main`, single commit; TDD-verified (new tests fail 3/4 on original, pass 4/4 with fix), full `npm run vitest:ci` 118 files / 636 pass, scoped eslint+prettier+stylelint clean; fork CI: see PR (fork-secret env artifacts expected red)
+
+- `2026-10-01 trivial` typo/link pass over user-facing docs and copy: 7 spellings fixed (`client/src/segments/README.md` "minimim"->"minimum"; `docs/.../reference/project.md` "depedency"->"dependency"; `docs/.../reference/segments.md` "varients"->"variants"; `docs/.../illustrations/library.md` alt "waterfront rightt"->"waterfront right"; `packages/illustrations/CHANGELOG.md` "defintions"->"definitions"; `packages/i18n/locales/en/segment-info.json` "inbetween"->"in between"; `app/resources/v1/street_images.ts` 401 msg "thumnail"->"thumbnail") plus 4 stale file links (`segments.md` `client/src/segments/components.json`->`packages/parts/data/components.yaml` and `.../segment-lookup.json`->`.../segment-lookup.yaml`; `skybox.md` `assets/scripts/streets/skybox-defs.json`->`client/src/sky/skybox-defs.json`; `helpers.md` `.assets/scripts/util/api.js`->`client/src/util/api.ts`) — fork PR `#29` `fix/docs-typos-and-stale-links` pr-opened (base fork `main`, 1 commit, 9 files, +12/-12, NON-draft); every old URL verified HTTP 404 and every new URL HTTP 200; NO file/line overlap with open PRs `#10`/`#17`/`#26`/`#27`/`#28`; local `npx vitest run` 118 files / 635 tests pass, `npx eslint` clean on the changed source. Deferred (found, not fixed, to keep this pass free of behaviour-string changes): the 404 API message "Did you mispell something?" in `app/api_routes.ts` / `app/service_routes.ts` and the two tests that assert it.
 
 ## Mined gaps
 
