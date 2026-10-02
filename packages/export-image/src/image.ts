@@ -61,7 +61,7 @@ const IMAGE_MIN_HEIGHT_WITH_STREET_NAME = IMAGE_MIN_HEIGHT + 150
 const IMAGE_BOTTOM_PADDING = 60
 const IMAGE_NAMES_WIDTHS_PADDING = 65
 
-// copy paste values witout importing for now
+// copy paste values without importing for now
 const BOUNDARY_WIDTH = 360
 
 export async function makeStreetImage(
