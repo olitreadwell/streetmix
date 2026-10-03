@@ -46,7 +46,7 @@ export async function getFromTransifex(
   const resources = await project.fetch('resources')
   const resource = await resources.get({ slug: resourceSlug })
 
-  // Get language - intead of using the list from the API, we pass the locale
+  // Get language - instead of using the list from the API, we pass the locale
   // code to this function
   const language = await transifexApi.Language.get({ code: locale })
 
