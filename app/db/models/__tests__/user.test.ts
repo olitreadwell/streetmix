@@ -26,8 +26,8 @@ describe.skip('creates a user', () => {
   })
 
   it('adds admin to roles', async () => {
-    // fyi: sequelize dosen't actually pass this to the table until user.save() or update
-    // so...this isn't commiting to the database and isn't testing that the role actually exists
+    // fyi: sequelize doesn't actually pass this to the table until user.save() or update
+    // so...this isn't committing to the database and isn't testing that the role actually exists
     user.addRole('ADMIN')
     expect(user.roles[1]).toBe('ADMIN')
     // we don't let dupe values be added
