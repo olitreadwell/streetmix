@@ -336,7 +336,7 @@ function incrementSchemaVersion(street) {
       break
     case 25:
       // 26: add elevation properties to segments
-      // No-op, superceded by schema version 27
+      // No-op, superseded by schema version 27
       break
     case 26:
       // 27: bugfix missing elevation properties from previous schema

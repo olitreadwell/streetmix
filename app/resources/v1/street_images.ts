@@ -148,7 +148,7 @@ export async function post(req: AuthedRequest, res: Response) {
     if (!req.auth?.sub) {
       res.status(401).json({
         status: 401,
-        msg: 'Sign in to upload street thumnail for owned street.',
+        msg: 'Sign in to upload street thumbnail for owned street.',
       })
       return
     }
