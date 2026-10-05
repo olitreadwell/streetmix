@@ -39,6 +39,21 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
     setActiveCategory(category)
   }
 
+  function getCategoryButtonProps(
+    targetCategory: string
+  ): React.ButtonHTMLAttributes<HTMLButtonElement> {
+    return {
+      type: 'button',
+      onClick: () => {
+        handleSelectCategory(targetCategory)
+      },
+      className:
+        'settings-menu-item' +
+        (activeCategory === targetCategory ? ' settings-menu-active' : ''),
+      'aria-current': activeCategory === targetCategory ? 'true' : undefined,
+    }
+  }
+
   let SettingsPanel
   switch (activeCategory) {
     case 'feature-flags':
@@ -77,83 +92,59 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
             <div className="settings-dialog-content">
               <div className="settings-dialog-left">
                 <ul>
-                  <li
-                    onClick={() => {
-                      handleSelectCategory('profile')
-                    }}
-                    className={
-                      activeCategory === 'profile' ? 'settings-menu-active' : ''
-                    }
-                  >
-                    <Icon
-                      name="user"
-                      size="18"
-                      className="settings-menu-icon"
-                    />
-                    <FormattedMessage
-                      id="settings.profile.label"
-                      defaultMessage="Profile"
-                    />
-                  </li>
-
-                  <li
-                    onClick={() => {
-                      handleSelectCategory('general')
-                    }}
-                    className={
-                      activeCategory === 'general' ? 'settings-menu-active' : ''
-                    }
-                  >
-                    <Icon
-                      name="settings"
-                      size="18"
-                      className="settings-menu-icon"
-                    />
-                    <FormattedMessage
-                      id="settings.general.label"
-                      defaultMessage="General"
-                    />
-                  </li>
-                  <li
-                    onClick={() => {
-                      handleSelectCategory('language')
-                    }}
-                    className={
-                      activeCategory === 'language'
-                        ? 'settings-menu-active'
-                        : ''
-                    }
-                  >
-                    <Icon
-                      name="language"
-                      size="18"
-                      className="settings-menu-icon"
-                    />
-                    <FormattedMessage
-                      id="settings.language.label"
-                      defaultMessage="Language"
-                    />
-                  </li>
-                  {showFlags && (
-                    <li
-                      onClick={() => {
-                        handleSelectCategory('feature-flags')
-                      }}
-                      className={
-                        activeCategory === 'feature-flags'
-                          ? 'settings-menu-active'
-                          : ''
-                      }
-                    >
+                  <li>
+                    <button {...getCategoryButtonProps('profile')}>
                       <Icon
-                        name="flag"
+                        name="user"
                         size="18"
                         className="settings-menu-icon"
                       />
-                      {/* Not translated, on purpose */}
-                      {/* eslint-disable formatjs/no-literal-string-in-jsx */}
-                      Feature flags
-                      {/* eslint-enable formatjs/no-literal-string-in-jsx */}
+                      <FormattedMessage
+                        id="settings.profile.label"
+                        defaultMessage="Profile"
+                      />
+                    </button>
+                  </li>
+
+                  <li>
+                    <button {...getCategoryButtonProps('general')}>
+                      <Icon
+                        name="settings"
+                        size="18"
+                        className="settings-menu-icon"
+                      />
+                      <FormattedMessage
+                        id="settings.general.label"
+                        defaultMessage="General"
+                      />
+                    </button>
+                  </li>
+                  <li>
+                    <button {...getCategoryButtonProps('language')}>
+                      <Icon
+                        name="language"
+                        size="18"
+                        className="settings-menu-icon"
+                      />
+                      <FormattedMessage
+                        id="settings.language.label"
+                        defaultMessage="Language"
+                      />
+                    </button>
+                  </li>
+                  {showFlags && (
+                    <li>
+                      <button {...getCategoryButtonProps('feature-flags')}>
+                        <Icon
+                          name="flag"
+                          size="18"
+                          className="settings-menu-icon"
+                        />
+                        {/* Not translated, on purpose */}
+                        {/* eslint-disable formatjs/no-literal-string-in-jsx */}
+                        Feature flags
+                        {/* eslint-enable formatjs/no-literal-string-in-jsx */}
+                      </button>
                     </li>
                   )}
                 </ul>
