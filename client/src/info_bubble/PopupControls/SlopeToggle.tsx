@@ -42,7 +42,7 @@ export function SlopeToggle({ position, checked, disabled }: SlopeToggleProps) {
       <div className="popup-control-label">
         <Tooltip label={label} placement="left" role="label">
           <span className="popup-control-icon">
-            <img src={slopeIcon} className="tabler-icon" />
+            <img src={slopeIcon} alt="" className="tabler-icon" />
           </span>
         </Tooltip>
       </div>

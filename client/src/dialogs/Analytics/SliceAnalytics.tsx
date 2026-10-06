@@ -36,6 +36,7 @@ export function SliceAnalytics({
       imageEl = (
         <img
           src={images.get('vehicles--magic-carpet-jasmine').src}
+          alt=""
           style={{ width: '100%', marginTop: '-22%' }}
         />
       )
@@ -44,6 +45,7 @@ export function SliceAnalytics({
       imageEl = (
         <img
           src={images.get('vehicles--car-inbound').src}
+          alt=""
           style={{ width: '100%', marginTop: '-10%' }}
         />
       )
@@ -52,6 +54,7 @@ export function SliceAnalytics({
       imageEl = (
         <img
           src={images.get('bikes--biker-01-inbound').src}
+          alt=""
           style={{ width: '45%', marginTop: '0%' }}
         />
       )
@@ -60,6 +63,7 @@ export function SliceAnalytics({
       imageEl = (
         <img
           src={images.get('transit--brt-bus-inbound').src}
+          alt=""
           style={{ width: '85%', marginTop: '-5%' }}
         />
       )
@@ -67,9 +71,10 @@ export function SliceAnalytics({
     case 'sidewalk':
       imageEl = (
         <>
-          <img src={images.get('people--people-01').src} />
+          <img src={images.get('people--people-01').src} alt="" />
           <img
             src={images.get('people--people-06').src}
+            alt=""
             style={{ marginLeft: '-40%' }}
           />
         </>
@@ -79,6 +84,7 @@ export function SliceAnalytics({
       imageEl = (
         <img
           src={images.get('scooters--scooter-inbound').src}
+          alt=""
           style={{ width: '38%', marginTop: '0%' }}
         />
       )
@@ -87,6 +93,7 @@ export function SliceAnalytics({
       imageEl = (
         <img
           src={images.get('transit--light-rail-inbound').src}
+          alt=""
           style={{ width: '65%', marginTop: '-15%' }}
         />
       )
@@ -95,6 +102,7 @@ export function SliceAnalytics({
       imageEl = (
         <img
           src={images.get('transit--bus-inbound').src}
+          alt=""
           style={{ width: '90%', marginTop: '0%' }}
         />
       )
@@ -103,6 +111,7 @@ export function SliceAnalytics({
       imageEl = (
         <img
           src={images.get('transit--streetcar-inbound').src}
+          alt=""
           style={{ width: '80%', marginTop: '-15%' }}
         />
       )
