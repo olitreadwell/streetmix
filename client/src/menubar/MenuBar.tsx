@@ -131,7 +131,7 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
           <h1>{coastmixMode ? 'Coastmix by Streetmix' : 'Streetmix'}</h1>
           {coastmixMode && (
             <a
-              href="https://www.boston.gov/coastmix/"
+              href="https://www.boston.gov/departments/climate-resilience"
               target="_blank"
               rel="noopener"
             >

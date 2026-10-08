@@ -68,7 +68,7 @@ Before you get started, here are some terms that you should get familiar with.
 
 ### Join the team
 
-Start by going our [Transifex project page](https://www.transifex.com/streetmix/streetmix/).
+Start by going our [Transifex project page](https://explore.transifex.com/streetmix/streetmix/).
 
 If you are not logged in or don't have an account yet, you will need to click the "Help Translate Streetmix" button and you will be prompted to log in or create an account.
 
@@ -80,7 +80,7 @@ The Transifex interface can take some getting used to. If something doesn't matc
 
 :::
 
-Once you create your account, you may have to confirm your email address. Then, navigate back to the [Transifex project page](https://www.transifex.com/streetmix/streetmix/) and you should see a blue button that says "Join Team".
+Once you create your account, you may have to confirm your email address. Then, navigate back to the [Transifex project page](https://explore.transifex.com/streetmix/streetmix/) and you should see a blue button that says "Join Team".
 
 ![image](_images/4769b7f-2-join-team.png)
 
@@ -94,7 +94,7 @@ After requesting to join a language, you should receive a confirmation message. 
 
 ### Getting started
 
-Once your request has been approved, you should see the following when you go back to the [Transifex project page](https://www.transifex.com/streetmix/streetmix/). From here, select _Languages_.
+Once your request has been approved, you should see the following when you go back to the [Transifex project page](https://explore.transifex.com/streetmix/streetmix/). From here, select _Languages_.
 
 ![image](_images/3e4f5bc-5-success-dashboard.png)
 

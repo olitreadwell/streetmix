@@ -51,7 +51,7 @@ export type RootState = ReturnType<typeof store.getState>
 export type Dispatch = typeof store.dispatch
 
 // https://redux.js.org/docs/api/Store.html#subscribelistener
-// https://github.com/reactjs/redux/issues/303#issuecomment-125184409
+// https://github.com/reduxjs/redux/issues/303
 // It differs from above in the sense that it assumes the store from this module
 // and it does _not_ call handleChange() immediately upon invocation
 // (where it is guaranteed to execute because it has not cached previous state)
