@@ -59,7 +59,7 @@ export function SponsorBanner() {
       <span>.</span>&nbsp;&nbsp;&nbsp;
       <span className="sponsor-banner-misc">
         <a
-          href="https://about.streetmix.net/sponsorship/"
+          href="https://about.streetmix.net/partners/"
           target="_blank"
           rel="noopener noreferrer"
         >

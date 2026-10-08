@@ -127,7 +127,7 @@ export function GeotagDialog() {
   const offline = useSelector((state) => state.system.offline)
 
   // this kinda goofy initial state object is a result of refactoring
-  // some legacy code. definetly worth refactoring further in the future
+  // some legacy code. definitely worth refactoring further in the future
   // if it causes other problems or confusion
   const initialState = getInitialState({
     street,
@@ -243,7 +243,7 @@ export function GeotagDialog() {
     return window.fetch(url).then((response) => response.json())
   }
 
-  // Search dialog state dosen't sync up with map state (IMO should clear or update with label)
+  // Search dialog state doesn't sync up with map state (IMO should clear or update with label)
   const handleSearchResults = (
     point: Position,
     properties: GeoJsonProperties

@@ -9,7 +9,7 @@ export function ToastNoConnection(props: ToastProps) {
   const intl = useIntl()
 
   // This toast is usually called with a infinite duration (it never
-  // closes after a certain amount of time has passsed). It will close
+  // closes after a certain amount of time has passed). It will close
   // if someone interacts with it, but it also needs to close
   // automatically when the connection is restored or re-attempted.
   // This event listener handles that.
