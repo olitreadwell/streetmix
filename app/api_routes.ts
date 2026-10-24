@@ -207,7 +207,7 @@ const router = Router()
  *         example: "true"
  */
 
-// Enable CORS for all OPTIONs "pre-flight" requests
+// Enable CORS for all OPTIONS "pre-flight" requests
 router.options(/.*/, cors())
 
 // API: all users
@@ -381,7 +381,7 @@ router.delete('/v1/users/:user_id', cors(), auth(), v1.users.del)
  *       - application/json
  *     responses:
  *       200:
- *         description: succesfully logged out user
+ *         description: successfully logged out user
  */
 router.delete(
   '/v1/users/:user_id/login-token',
@@ -409,7 +409,7 @@ router.delete(
  *       - application/json
  *     responses:
  *       200:
- *         description: succesfully deleted streets
+ *         description: successfully deleted streets
  *   get:
  *     description: Returns all streets by a given user
  *     parameters:
@@ -902,7 +902,7 @@ router.put('/v1/votes', cors(), auth(), v1.votes.put)
 router.all(/.*/, (req, res) => {
   res
     .status(404)
-    .json({ status: 404, error: 'Not found. Did you mispell something?' })
+    .json({ status: 404, error: 'Not found. Did you misspell something?' })
 })
 
 export default router

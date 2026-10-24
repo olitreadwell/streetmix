@@ -11,7 +11,7 @@ interface LoadingSpinnerProps {
  * you need a text label, the parent component should provide one.
  *
  * The `size` prop allows you to create a smaller spinner ideal for inline
- * UI situations, but the size can also be overriden via CSS (see stylesheet).
+ * UI situations, but the size can also be overridden via CSS (see stylesheet).
  */
 export function LoadingSpinner({ size = 'normal' }: LoadingSpinnerProps) {
   const classNames = ['loading-spinner']

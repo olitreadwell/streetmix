@@ -41,7 +41,7 @@ Here is an overview of many (though not all) of the illustrations created for St
 <br />
 <img alt="waterfront left" src="https://streetmix.github.io/illustrations/images/buildings/waterfront-left.svg" className="stmx-illustration-reference" />
 &nbsp;
-<img alt="waterfront rightt" src="https://streetmix.github.io/illustrations/images/buildings/waterfront-right.svg" className="stmx-illustration-reference" />
+<img alt="waterfront right" src="https://streetmix.github.io/illustrations/images/buildings/waterfront-right.svg" className="stmx-illustration-reference" />
 <br />
 <img alt="parking lot left" src="https://streetmix.github.io/illustrations/images/buildings/parking-lot-left.svg" className="stmx-illustration-reference" />
 &nbsp;

@@ -58,7 +58,7 @@
 # v1.0.1
 
 - Fix: left/right/straight turn arrows were previously in rough draft form
-- Fix: file name of European-style arcade buildings to match building defintions
+- Fix: file name of European-style arcade buildings to match building definitions
 
 # v1.0.0
 

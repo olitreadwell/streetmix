@@ -18,7 +18,7 @@ For general guidance on language, please refer to our [content styleguide](../co
 
 **A:** The translated string's final punctuation mark (or lack thereof) should match the source English entry in Transifex. If your language has different rules, please bring it up in our Discord server so we can make a note of this in Transifex.
 
-**Q: In my language, action buttons can use either the infinitive form or the conjugated command form of a verb(e.g. "Guardar imagen" o "Guarda imagen" in Spanish). Which form should I use?**
+**Q: In my language, action buttons can use either the infinitive form or the conjugated command form of a verb (e.g. "Guardar imagen" o "Guarda imagen" in Spanish). Which form should I use?**
 
 **A:** Please choose the form that you think communicates a friendly tone and then be consistent with your choice. If you disagree with prior decisions, please [report an issue](new-translator-guide#reporting-issues) on the string.
 

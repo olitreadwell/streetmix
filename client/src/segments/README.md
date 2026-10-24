@@ -124,6 +124,6 @@ Sprite definitions used in the `sprite` array can have the following properties.
 
 ### Quirks
 
-Quirks are additional properties that change the rendering logic for a particular segment. There is only one quirk, `minWidth`, which is not the same thing as a segment's legal minimim width. This is the segment's minimum renderable width. For a given segment that is narrower than this width (in feet), the component's graphical assets (not including ground textures, like asphalt) are rendered as if the width of the segment was the `quirks.minWidth` value.
+Quirks are additional properties that change the rendering logic for a particular segment. There is only one quirk, `minWidth`, which is not the same thing as a segment's legal minimum width. This is the segment's minimum renderable width. For a given segment that is narrower than this width (in feet), the component's graphical assets (not including ground textures, like asphalt) are rendered as if the width of the segment was the `quirks.minWidth` value.
 
 This was created to support the variable-width BRT station, which has left- and right-aligned assets. Below a certain width, the segment would begin to render the pieces of the station in an undesirable way. By specifying the `quirks.minWidth` value, the BRT station stops shrinking (and rendering strangely) below a width of 2 meters.

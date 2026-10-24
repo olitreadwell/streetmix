@@ -20,7 +20,7 @@ vi.mock('../../app/config.js', async (importOriginal) => {
   }
 })
 
-// as mocked, the intial state is a street with a previously saved location, and a new marker location
+// as mocked, the initial state is a street with a previously saved location, and a new marker location
 // in practice, these tests don't really handle this 'new' marker location yet
 
 const initialState = {

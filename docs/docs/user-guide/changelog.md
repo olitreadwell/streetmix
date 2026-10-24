@@ -225,7 +225,7 @@ Some interaction functionality is being reworked, which has resulted in some kno
 
 ## March 22, 2024
 
-Happy 2024! This week, we've rolled out a very big change behind the scenes: **Streetmix now uses metric units internally.** This is the culmination of a long process that took several years of careful planning and a over a month of focused implementation effort. Previously, Streetmix used U.S. customary units (also known, imprecisely, as "imperial"), and then converted those units to metric for users that needed it. This proved difficult to work with as Streetmix use expanded globally.
+Happy 2024! This week, we've rolled out a very big change behind the scenes: **Streetmix now uses metric units internally.** This is the culmination of a long process that took several years of careful planning and over a month of focused implementation effort. Previously, Streetmix used U.S. customary units (also known, imprecisely, as "imperial"), and then converted those units to metric for users that needed it. This proved difficult to work with as Streetmix use expanded globally.
 
 This is an internal change, so **you very likely do not need to take any action with your existing streets.** If you're using imperial (U.S. customary) units, your streets will have the same measurements as before.
 
@@ -308,7 +308,7 @@ We stealth-launched two-way cycletracks a few months ago, but this is its offici
 #### Available for [Streetmix+](https://strt.mx/plus) members:
 
 - **Two-way bi-directional cycletracks.** You no longer have to put together two bike lanes together by hand! Just plop down a cycletrack _and_ get a nice painted yellow line down its middle.
-- **Mixed-use traffic lane (with bus).** Let's be real, you often get busses and cars in the same lane. Why not show that?
+- **Mixed-use traffic lane (with bus).** Let's be real, you often get buses and cars in the same lane. Why not show that?
 - **Mixed-use traffic lane (with bicyclist).** Let's be even realer: too often, bikers are stuck on drive lanes too. But I don't think these bikers are too happy about it.
 - **Drainage channel.** It's been too long since we gave the stormwater management people some love. This is just the beginning. We know there's so much more to drainage than just a groove in a street.
 - **Elevation toggle for sidewalk.** You can now make some pedestrian areas not have a curb.

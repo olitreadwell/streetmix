@@ -5,7 +5,7 @@ sidebar_position: 2
 
 # Content styleguide
 
-Streetmix is a tool for communication and collaboration, so the way we write and present content should facilitate those goals. This is a reference that will continue to grow as needed. When you run into a situation that isn't covered here, refer to the very excellent [18F Content Guide](https://content-guide.18f.gov/).
+Streetmix is a tool for communication and collaboration, so the way we write and present content should facilitate those goals. This is a reference that will continue to grow as needed. When you run into a situation that isn't covered here, refer to the very excellent [18F Content Guide](https://github.com/18F/content-guide).
 
 ## Basic guidelines
 

@@ -6,7 +6,7 @@ module.exports = {
       // exceed limits set by commitlint.
       // See https://github.com/dependabot/dependabot-core/issues/2445
       // The following solution is taken from
-      // https://github.com/vidavidorra/commitlint-config/blob/master/commitlint.config.js
+      // https://github.com/vidavidorra/commitlint-config/blob/main/commitlint.config.cjs
       rules: {
         'header-max-length-deps': (parsed) => {
           const config = {

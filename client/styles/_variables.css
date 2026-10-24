@@ -116,7 +116,7 @@
   --social-discord: #5865f2;
   --social-discord-hover: color-mix(in oklch, black 10%, var(--social-discord));
 
-  /* Facebook (https://about.meta.com/brand/resources/facebookapp/logo) */
+  /* Facebook (https://about.meta.com/brand/resources/facebook/logo) */
   --social-facebook: rgb(24 119 242);
   --social-facebook-hover: color-mix(
     in oklch,

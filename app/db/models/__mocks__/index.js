@@ -82,7 +82,7 @@ VoteMock.$queryInterface.$useHandler(function (query, queryOptions, _done) {
     queryOptions[0].where.id &&
     queryOptions[0].where.id === 'vote2'
   ) {
-    // mocking case where vote does not belond to user
+    // mocking case where vote does not belong to user
     if (queryOptions[0].where.voter_id === 'user1') {
       return null
     }

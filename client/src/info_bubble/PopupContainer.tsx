@@ -72,7 +72,7 @@ export function PopupContainer({
   const nodeId = useFloatingNodeId()
   const Shepherd = useShepherd()
 
-  // Handle programatically dismissing this popup when needed
+  // Handle programmatically dismissing this popup when needed
   useEffect(() => {
     function handleDismiss() {
       setIsOpen(false)

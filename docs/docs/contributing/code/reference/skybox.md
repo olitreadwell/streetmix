@@ -12,7 +12,7 @@ This is a draft specification of Streetmix's skybox feature. The schema and stru
 
 The **Skybox** allows users to change the "environment" of a street, which can include elements like time of day, weather, and background. Internally, the term `skybox` is used over `environment` to avoid confusion with its technical usage. In UI, "environment" should be preferred.
 
-Skybox definitions are contained in `skybox-defs.json`. You can browse the [current skybox definitions here](https://github.com/streetmix/streetmix/blob/main/assets/scripts/streets/skybox-defs.json).
+Skybox definitions are contained in `skybox-defs.json`. You can browse the [current skybox definitions here](https://github.com/streetmix/streetmix/blob/main/client/src/sky/skybox-defs.json).
 
 ## `skybox-defs.json` schema
 

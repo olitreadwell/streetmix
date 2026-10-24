@@ -175,7 +175,7 @@ router.post(
 router.all(/.*/, (req, res) => {
   res
     .status(404)
-    .json({ status: 404, error: 'Not found. Did you mispell something?' })
+    .json({ status: 404, error: 'Not found. Did you misspell something?' })
 })
 
 export default router
