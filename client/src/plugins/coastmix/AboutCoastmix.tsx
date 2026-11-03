@@ -63,7 +63,7 @@ export function AboutCoastmix() {
           waterfront, build coastal flood protection, and learn how climate
           change impacts your community.{' '}
           <a
-            href="https://www.boston.gov/coastmix"
+            href="https://www.boston.gov/departments/climate-resilience"
             target="_blank"
             rel="noopener"
           >

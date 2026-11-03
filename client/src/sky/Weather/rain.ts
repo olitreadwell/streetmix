@@ -63,7 +63,7 @@ export function initRain(el: HTMLCanvasElement): void {
     canvas = el
     ctx = canvas.getContext('2d')
 
-    // initalize some randomness on values
+    // initialize some randomness on values
     // TODO -- allow passing in start values as well
     speed = Math.random() * 0.4 + 0.8 // range 0.8 - 1.2
     wind = Math.random() * 20 - 10 // range -10 to 10

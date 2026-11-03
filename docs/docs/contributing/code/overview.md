@@ -19,7 +19,7 @@ You can also [join our Discord server](https://strt.mx/discord) and talk with us
 
 1. **Fork the project**, if you do not already have write access to the repository. Individuals making significant and valuable contributions will be given write access.
 2. **Create a new branch.** Changes should always be made in a new feature branch. The branch should be named in the format `username/feature-name`.
-3. **Implement your feature or bug fix.** Writing code is the fun part Before you start any work, it's a good idea to talk to the team first, so that we can be sure you're on the right track.
+3. **Implement your feature or bug fix.** Writing code is the fun part. Before you start any work, it's a good idea to talk to the team first, so that we can be sure you're on the right track.
 4. **Commit your changes.** Commit messages should follow [semantic commit message format](styleguide#code-commit-style). When committing, we use hooks to run code style linting. If it fails, please correct (or override) the code and commit again.
 5. **Push your changes.** After pushing, we run continuous integration tests in the cloud to make sure commits pass. We recommend manually [running tests locally](reference/tests#running-tests) as well.
 6. **Submit a pull request.** Ideally, pull requests contain small, self-contained changes with a few commits, which are easier to review. You can simplify a review and merge process by making sure your branch contains no conflicts with the `main` branch and is up-to-date (either by rebasing on `main` or merging it in) when the pull request is created. If the pull request addresses an open issue, be sure to reference it in your request's title or description.
