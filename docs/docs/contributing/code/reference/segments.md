@@ -90,23 +90,23 @@ Markings are a transitional category which emerged because it was necessary to f
 
 ### Components definitions
 
-Segment components are defined in [`components.json`](https://github.com/streetmix/streetmix/blob/main/client/src/segments/components.json).
+Segment components are defined in [`components.yaml`](https://github.com/streetmix/streetmix/blob/main/packages/parts/data/components.yaml).
 
 ## Segment definitions
 
 :::note Background
 
-Currently every object type (what we call "segments" internally) is [defined here](https://github.com/streetmix/streetmix/blob/main/client/src/segments/segment-lookup.json).
+Currently every object type (what we call "segments" internally) is [defined here](https://github.com/streetmix/streetmix/blob/main/packages/parts/data/segment-lookup.yaml).
 
 Its basic structure is very minimal. For every segment we have some properties attached to it (e.g. its display name, minimum / maximum recommended width, if any, and so on), and we also specify which image sprites represent the segment graphically. Each segment may also have variants, which come with its own properties.
 
 The problem with this format is that each segment hard-codes its own definitions for everything. For example, both drive lanes and parking lanes define what a car is, redundantly. This makes it very hard for segments to represent real-world flexibility. If we wanted all segments capable of supporting a bicycle to have a bicycle option, then each segment needs to duplicate the details of the bicycle.
 
-Finally, there is the problem variants. Each segment variant combines with other varients so the total number of variants are multiplied together. This means each time a new variant is added, the data multiplies exponentially. Most segments have two variants, which is manageable. Once you have three or more, it's unworkable. It's one of the main reasons why we resisted putting in raised bike lanes despite it being one of the most requested segment features over the last few years. Doing so raised the complexity of our data, and so we need to consider how to implement it in a better way.
+Finally, there is the problem variants. Each segment variant combines with other variants so the total number of variants are multiplied together. This means each time a new variant is added, the data multiplies exponentially. Most segments have two variants, which is manageable. Once you have three or more, it's unworkable. It's one of the main reasons why we resisted putting in raised bike lanes despite it being one of the most requested segment features over the last few years. Doing so raised the complexity of our data, and so we need to consider how to implement it in a better way.
 
 :::
 
-Segments are now defined as an assemblage of components, with additional properties, in [`segment-lookup.son`](https://github.com/streetmix/streetmix/blob/main/client/src/segments/segment-lookup.json).
+Segments are now defined as an assemblage of components, with additional properties, in [`segment-lookup.yaml`](https://github.com/streetmix/streetmix/blob/main/packages/parts/data/segment-lookup.yaml).
 
 ### Additional segment properties
 

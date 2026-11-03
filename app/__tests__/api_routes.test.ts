@@ -182,7 +182,7 @@ describe('api_routes router wiring', () => {
     expect(response.statusCode).toBe(404)
     expect(response.body).toEqual({
       status: 404,
-      error: 'Not found. Did you mispell something?',
+      error: 'Not found. Did you misspell something?',
     })
   })
 

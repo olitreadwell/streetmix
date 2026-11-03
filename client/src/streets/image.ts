@@ -5,7 +5,7 @@ import store, { observeStore, type RootState } from '../store'
 import { drawStreetThumbnail } from './thumbnail.js'
 import { trimStreetData } from './data_model.js'
 
-import type { StreetState } from '@streetmix/types'
+import type { FloodDetails, StreetState } from '@streetmix/types'
 
 // This can be adjusted to create much more hi-definition images
 const SAVE_AS_IMAGE_DPI = 2.0
@@ -23,8 +23,11 @@ export async function getStreetImage(
   transparentSky: boolean,
   labels: boolean,
   streetName: boolean,
+  seaLevelRise = false,
+  floodDetails: [FloodDetails | null, FloodDetails | null] = [null, null],
+  stormSurge = false,
   dpi = SAVE_AS_IMAGE_DPI,
-  watermark = true,
+  watermark: boolean | 'coastmix' = true,
   locale: string | null = null
 ): Promise<HTMLCanvasElement> {
   const width = TILE_SIZE * street.width + BOUNDARY_WIDTH * 2
@@ -75,6 +78,9 @@ export async function getStreetImage(
     transparentSky,
     labels,
     streetName,
+    seaLevelRise,
+    floodDetails,
+    stormSurge,
     watermark,
     locale,
   })
