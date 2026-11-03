@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import { screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render.js'
@@ -49,5 +49,59 @@ describe('StreetName', () => {
 
     await userEvent.hover(screen.getByText('foo'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
+  })
+})
+
+describe('StreetName keyboard accessibility', () => {
+  it('is presented as a focusable button when it can be edited', () => {
+    render(<StreetName name="Test St" editable onClick={() => {}} />)
+
+    const name = screen.getByRole('button', { name: 'Test St' })
+    expect(name).toHaveAttribute('tabindex', '0')
+  })
+
+  it('is not a button when it cannot be edited', () => {
+    const { container } = render(<StreetName name="Test St" />)
+
+    expect(container.querySelector('.street-name')).not.toHaveAttribute(
+      'role',
+      'button'
+    )
+    expect(container.querySelector('.street-name')).not.toHaveAttribute(
+      'tabindex'
+    )
+  })
+
+  it('activates rename when the focused name is activated with Enter', () => {
+    const onClick = vi.fn()
+    render(<StreetName name="Test St" editable onClick={onClick} />)
+
+    fireEvent.keyDown(screen.getByRole('button', { name: 'Test St' }), {
+      key: 'Enter',
+    })
+
+    expect(onClick).toHaveBeenCalledTimes(1)
+  })
+
+  it('activates rename when the focused name is activated with Space', () => {
+    const onClick = vi.fn()
+    render(<StreetName name="Test St" editable onClick={onClick} />)
+
+    fireEvent.keyDown(screen.getByRole('button', { name: 'Test St' }), {
+      key: ' ',
+    })
+
+    expect(onClick).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not activate rename for other keys', () => {
+    const onClick = vi.fn()
+    render(<StreetName name="Test St" editable onClick={onClick} />)
+
+    fireEvent.keyDown(screen.getByRole('button', { name: 'Test St' }), {
+      key: 'a',
+    })
+
+    expect(onClick).not.toHaveBeenCalled()
   })
 })
