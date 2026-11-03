@@ -35,7 +35,7 @@ export function GalleryContents({ user }: GalleryContentsProps) {
       // Make sure the element exists -- sometimes it hasn't rendered yet,
       // or it's on another page.
       if (selectedEl) {
-        // Center the selected item when the view is first programatically
+        // Center the selected item when the view is first programmatically
         // rendered. Selecting the item manually will only scroll to nearest
         // position to minimize scrolling movement.
         let alignment: ScrollLogicalPosition = 'nearest'

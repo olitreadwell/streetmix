@@ -17,6 +17,9 @@ const disallowFlooding = [
   SliceTypes.UTILITY,
 ]
 
+/* This is a debug-only feature */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 function Details({
   details,
   remainingWidth,
@@ -92,9 +95,15 @@ export function FloodingDebugOverlay({ on }: { on: boolean }) {
     return null
   }
 
+  const rise = Math.max(left?.rise ?? 0, right?.rise ?? 0)
+  const riseImperial = convertMetricMeasurementToImperial(rise)
+
   return (
     <div className="flooding-debug-overlay">
       <h2>Flooding debug</h2>
+      <p>
+        Rise: {rise} m ({riseImperial} ft)
+      </p>
       <p>
         Left:
         <Details details={left} remainingWidth={remainingWidth} />

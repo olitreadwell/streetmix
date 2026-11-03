@@ -92,7 +92,7 @@ sidewalk-tree:
 sidewalk-bike-rack:
   name: Bike rack
   nameKey: bike-rack
-  owner: BIKE
+  owner: FURNITURE
   zIndex: 23
   coastmixPaletteOrder: 22
   defaultWidth:
@@ -906,6 +906,7 @@ drainage-channel:
   name: Drainage channel
   nameKey: drainage-channel
   owner: DRAINAGE
+  coastmixPaletteOrder: 50
   unlockWithFlag: SEGMENT_DRAINAGE_CHANNEL_UNLOCKED
   unlockCondition: SUBSCRIBE
   defaultWidth:

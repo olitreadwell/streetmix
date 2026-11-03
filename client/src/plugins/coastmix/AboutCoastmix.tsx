@@ -9,6 +9,8 @@ import michaelAvatar from 'url:./images/michael.jpg'
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import './AboutCoastmix.css'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function AboutCoastmix() {
   return (
     <div className="about-coastmix-section">
@@ -61,7 +63,7 @@ export function AboutCoastmix() {
           waterfront, build coastal flood protection, and learn how climate
           change impacts your community.{' '}
           <a
-            href="https://www.boston.gov/coastmix"
+            href="https://www.boston.gov/departments/climate-resilience"
             target="_blank"
             rel="noopener"
           >
@@ -136,6 +138,10 @@ export function AboutCoastmix() {
                 <strong>Benjamin Matusow</strong>, <i>Planning Department</i>
               </li>
               <li>
+                <strong>Santi Garces</strong>,{' '}
+                <i>Innovation and Technology Cabinet</i>
+              </li>
+              <li>
                 <strong>Christopher Osgood</strong>,{' '}
                 <i>Office of Climate Resilience</i>
               </li>
@@ -149,6 +155,10 @@ export function AboutCoastmix() {
               <li>
                 <strong>Nayeli Rodriguez</strong>,{' '}
                 <i>Office of Climate Resilience</i>
+              </li>
+              <li>
+                <strong>Abbie Menendez</strong>,{' '}
+                <i>Office of Emerging Technology</i>
               </li>
               <li>
                 <strong>Roua Atamaz Sibai</strong>,{' '}

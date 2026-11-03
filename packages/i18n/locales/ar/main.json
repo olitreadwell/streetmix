@@ -269,6 +269,7 @@
       "option-labels": "عرض الأجزاء وأسمائها",
       "option-name": "اسم الشارع",
       "option-sky": "سماء شفافة",
+      "option-sea-level-rise": "",
       "option-watermark": "",
       "option-custom-scale": "",
       "option-custom-scale-description": "",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, zero { # طَبَقة} one {طابِق} two {طابقين} few {# طوابق} many {# طوابق} other {# طوابق}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "هذا الجزء لا يتناسب مع الشارع.",
       "not-wide": "قد لا يكون هذا الجزء عريض بما يكفي.",
       "too-wide": "قد يكون هذا الجزء عريض للغاية.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "اعرف المزيد",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "حد أدنى",
-      "max": "حد أقصى"
+      "max": "حد أقصى",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

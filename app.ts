@@ -35,7 +35,6 @@ initCloudinary()
 // Build SVG sprites before starting Express server
 await Promise.all([
   compileSVGSprites('packages/variant-icons/icons/', 'icons', 'icon'),
-  compileSVGSprites('client/images/illustrations', 'illustrations', 'image'),
   compileSVGSprites('packages/illustrations/images/', 'images', 'image'),
 ])
 
@@ -161,7 +160,11 @@ const csp = {
       '*.wp.com',
       'cdn.auth0.com', // Auth0 default profile images
     ],
-    fontSrc: ["'self'", 'static.userback.io'],
+    fontSrc: [
+      "'self'",
+      'static.userback.io',
+      'cdn.jsdelivr.net', // Allows fontsource hosted fonts
+    ],
     connectSrc: [
       "'self'",
       process.env.PELIAS_HOST_NAME ?? '',
@@ -197,9 +200,17 @@ app.use(helmet(helmetConfig))
 app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
+const cookieSessionSecret = process.env.COOKIE_SESSION_SECRET
+
+if (!cookieSessionSecret && process.env.NODE_ENV === 'production') {
+  throw new Error(
+    'COOKIE_SESSION_SECRET must be set before starting the production server. See docs/docs/contributing/code/local-setup.md.'
+  )
+}
+
 app.use(
   cookieSession({
-    secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
+    secret: cookieSessionSecret || 'streetmix-development-session-secret',
     sameSite: 'strict',
   })
 )
@@ -213,7 +224,7 @@ app.use(passport.session())
 const metatagImage =
   process.env.STREETMIX_INSTANCE !== 'coastmix'
     ? 'https://streetmix.net/images/thumbnail.png'
-    : 'https://coastmix.streetmix.app/images/thumbnail-coastmix.png'
+    : 'https://coastmix.org/images/thumbnail-coastmix.png'
 const metatagTitle =
   process.env.STREETMIX_INSTANCE !== 'coastmix' ? 'Streetmix' : 'Coastmix'
 const metatagDescription =

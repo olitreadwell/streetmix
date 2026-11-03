@@ -1,12 +1,14 @@
 import { useLayoutEffect, useRef } from 'react'
 
-import bostonLogo from 'url:~/src/plugins/coastmix/images/boston-logo.svg'
 import { STREETMIX_INSTANCE } from './config.js'
 import './Loading.css'
 
 interface LoadingProps {
   isLoading: boolean
 }
+
+/* TODO: exists outside of i18n tree; cannot translate right now. */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
 
 export function Loading({ isLoading = true }: LoadingProps) {
   const loadingStuckNotice = useRef<HTMLDivElement>(null)
@@ -40,17 +42,6 @@ export function Loading({ isLoading = true }: LoadingProps) {
 
   return (
     <div id="loading" className={classNames.join(' ')} hidden={!isLoading}>
-      {coastmixMode && (
-        <>
-          <img
-            className="loading-boston-logo"
-            src={bostonLogo}
-            alt="City of Boston"
-            draggable={false}
-          />
-          <p>presents</p>
-        </>
-      )}
       <div className="streetmix-logo" />
       <div className="loading-spinner" />
       <div

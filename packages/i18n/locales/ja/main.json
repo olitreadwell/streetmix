@@ -269,6 +269,7 @@
       "option-labels": "セグメントの名称と幅",
       "option-name": "ストリートの名称",
       "option-sky": "空を透明化",
+      "option-sea-level-rise": "",
       "option-watermark": "",
       "option-custom-scale": "",
       "option-custom-scale-description": "",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, other {#階}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "このセグメントは道路からはみ出しています。",
       "not-wide": "十分な幅が設定されていません。",
       "too-wide": "セグメントが大きすぎます。",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "詳細",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "最小",
-      "max": "最大"
+      "max": "最大",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

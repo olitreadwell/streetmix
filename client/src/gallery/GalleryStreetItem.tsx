@@ -11,6 +11,7 @@ import { Icon } from '../ui/Icon.js'
 
 import type { StreetAPIResponse } from '@streetmix/types'
 import './GalleryStreetItem.css'
+import type { MessageValue } from 'react-intl'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -58,6 +59,9 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
         transparentSky: false,
         labels: false,
         streetName: false,
+        seaLevelRise: true,
+        floodDetails: street.data.plugins.coastmix?.floodDetails,
+        stormSurge: street.data.plugins.coastmix?.stormSurge,
         watermark: false,
         locale: null,
       })
@@ -78,7 +82,7 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
     event.preventDefault()
     event.stopPropagation()
 
-    const message = intl.formatMessage(
+    const message = intl.formatMessage<{ readonly streetName: MessageValue }>(
       {
         id: 'prompt.delete-street',
         defaultMessage:
@@ -112,7 +116,7 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
   }
 
   return (
-    <div className={classNames.join(' ')}>
+    <div className={classNames.join(' ')} data-street-name={street.name}>
       <a
         href={getStreetUrl(street)}
         onClick={handleSelectStreet}

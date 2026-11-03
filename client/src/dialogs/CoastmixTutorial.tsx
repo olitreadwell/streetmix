@@ -3,6 +3,8 @@ import { Button } from '~/src/ui/Button.js'
 import { Dialog } from './Dialog.js'
 import './CoastmixTutorial.css'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function CoastmixTutorialComplete() {
   return (
     <Dialog>
@@ -24,7 +26,8 @@ export function CoastmixTutorialComplete() {
             <p
               style={{
                 display: 'flex',
-                margin: '0',
+                margin: 0,
+                marginTop: '1.5em',
               }}
             >
               <Button onClick={closeDialog} tertiary>

@@ -5,7 +5,7 @@ import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 import { FloatingTree } from '@floating-ui/react'
 
-import { CoastmixUI, BostonHeader } from '~/src/plugins/coastmix'
+import { CoastmixUI } from '~/src/plugins/coastmix'
 import { MenusContainer } from '../menubar/MenusContainer.js'
 import { StreetNameplateContainer } from '../streets/StreetNameplateContainer.js'
 import { DescriptionPanel } from '../info_bubble/DescriptionPanel.js'
@@ -22,6 +22,7 @@ import { DebugInfo } from './DebugInfo.js'
 import { BlockingShield } from './BlockingShield.js'
 import { BlockingError } from './BlockingError.js'
 import { StreetView } from './StreetView.js'
+import { MainScreen } from './MainScreen.js'
 import { PrintContainer } from './PrintContainer.js'
 import { WelcomePanel } from './WelcomePanel'
 import { NotificationBar } from './NotificationBar'
@@ -78,7 +79,7 @@ export function App() {
                 <DndProvider options={HTML5toTouch} context={window}>
                   {/* DndProvider allows multiple children; IntlProvider does not */}
                   <NotificationBar />
-                  <BostonHeader />
+                  {/* <BostonHeader /> */}
                   {/* Don't have this with <NotificationBar at the same time */}
                   <BlockingShield />
                   <BlockingError />
@@ -86,7 +87,7 @@ export function App() {
                   <DialogRoot />
                   <DebugInfo />
                   <PrintContainer />
-                  <div className="main-screen">
+                  <MainScreen>
                     <MenusContainer />
                     <StreetNameplateContainer />
                     <DescriptionPanel />
@@ -98,7 +99,7 @@ export function App() {
                     <ToastContainer />
                     <SentimentSurveyContainer />
                     <CoastmixUI />
-                  </div>
+                  </MainScreen>
                   <SponsorBanner />
                 </DndProvider>
               </TourProvider>

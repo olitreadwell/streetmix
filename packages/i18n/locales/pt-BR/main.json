@@ -269,6 +269,7 @@
       "option-labels": "Nome dos segmentos e larguras",
       "option-name": "Nome da rua",
       "option-sky": "Céu transparente",
+      "option-sea-level-rise": "",
       "option-watermark": "",
       "option-custom-scale": "",
       "option-custom-scale-description": "",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, one {andar} many {# andares} other {# andares}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "Este segmento não se encaixa na rua.",
       "not-wide": "Este segmento pode não estar largo o suficiente.",
       "too-wide": "Este segmento pode estar muito largo.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Saiba mais",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "Mín",
-      "max": "Máx"
+      "max": "Máx",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

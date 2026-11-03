@@ -269,6 +269,7 @@
       "option-labels": "세그먼트 이름과 폭",
       "option-name": "스트리트 이름",
       "option-sky": "투명 하늘",
+      "option-sea-level-rise": "",
       "option-watermark": "워터마크",
       "option-custom-scale": "맞춤형 규모",
       "option-custom-scale-description": "이미지를 원본 크기의 최대 500%까지 다운로드하세요.",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, other {# 층}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "이 세그먼트는 스트리트 폭에 맞지 않습니다.",
       "not-wide": "이 세그먼트의 폭이 충분히 넓지 않습니다.",
       "too-wide": "이 세그먼트의 폭이 너무 넓은 것 같네요.",
       "dangerous": "이 세그먼트는 위험한 현재 상태를 나타냅니다.",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "더 알아보기",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "최소",
-      "max": "최대"
+      "max": "최대",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

@@ -129,7 +129,7 @@ export function webhook(req: Request, res: Response, _next: NextFunction) {
   // Check for the existence of headers specified by Patreon Webhooks docs
   // https://docs.patreon.com/#webhooks
   // While the docs specify headers with capitalization, the actual headers
-  // we recieve are lowercase.
+  // we receive are lowercase.
   if (
     typeof req.headers['x-patreon-event'] === 'undefined' ||
     typeof req.headers['x-patreon-signature'] === 'undefined'

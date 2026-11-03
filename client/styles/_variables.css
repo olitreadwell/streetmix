@@ -116,7 +116,7 @@
   --social-discord: #5865f2;
   --social-discord-hover: color-mix(in oklch, black 10%, var(--social-discord));
 
-  /* Facebook (https://about.meta.com/brand/resources/facebookapp/logo) */
+  /* Facebook (https://about.meta.com/brand/resources/facebook/logo) */
   --social-facebook: rgb(24 119 242);
   --social-facebook-hover: color-mix(
     in oklch,
@@ -195,7 +195,7 @@
   --z-03-street-name: var(--z-index-03);
   --z-04-drag-layer: var(--z-index-04);
   --z-05-welcome: var(--z-index-05);
-  --z-06-drag-handle: var(--z-index-06);
+  --z-06-resize-handle: var(--z-index-06);
   --z-06-popup: var(--z-index-06);
   --z-07-floating-panel: calc(var(--z-index-07) + 50);
   --z-07-menu: calc(var(--z-index-07) + 75);
@@ -205,8 +205,6 @@
   --z-07-trashcan: var(--z-index-07);
   --z-08-dialog-box-backdrop: var(--z-index-08);
   --z-08-gallery-shield: var(--z-index-08);
-  --z-09-debug: var(--z-index-09);
-  --z-09-dialog-box: var(--z-index-09);
   --z-09-gallery: var(--z-index-09);
 
   /* Blocking overlays
@@ -214,7 +212,8 @@
   --z-09-blocking-shield: var(--z-index-09);
   --z-09-error: var(--z-index-09);
   --z-09-loading: var(--z-index-09);
-  --z-10-flash-border: var(--z-index-10);
+  --z-10-debug: var(--z-index-10);
+  --z-10-dialog-box: var(--z-index-10);
   --z-10-notification-bar: var(--z-index-10);
   --z-10-print: var(--z-index-10);
   --z-10-switch-away: var(--z-index-10);

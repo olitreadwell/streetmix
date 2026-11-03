@@ -269,6 +269,7 @@
       "option-labels": "Noms i amplades de tram",
       "option-name": "Nom del carrer",
       "option-sky": "Cel transparent",
+      "option-sea-level-rise": "",
       "option-watermark": "Marca d'aigua",
       "option-custom-scale": "",
       "option-custom-scale-description": "",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, one {# nivell} other {# nivells}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "Aquest segment o tram no s’adapta al carrer.",
       "not-wide": "És possible que aquest tram o segment no sigui prou ampli.",
       "too-wide": "És possible que aquest tram o segment sigui massa ampli.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Apreneu-ne més",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "Mín",
-      "max": "Màx"
+      "max": "Màx",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

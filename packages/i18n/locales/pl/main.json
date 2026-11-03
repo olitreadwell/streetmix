@@ -269,6 +269,7 @@
       "option-labels": "Nazwy i szerokości segmentów",
       "option-name": "Nazwa ulicy",
       "option-sky": "Czyste niebo",
+      "option-sea-level-rise": "",
       "option-watermark": "",
       "option-custom-scale": "",
       "option-custom-scale-description": "",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, one {# piętro} few {# piętra} many {# pięter} other {# pięter}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "Segment nie mieści się na tej ulicy.",
       "not-wide": "Segment może nie być wystarczająco szeroki.",
       "too-wide": "Ten segment może być zbyt szeroki.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Dowiedz się więcej",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "Min.",
-      "max": "Max."
+      "max": "Max.",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

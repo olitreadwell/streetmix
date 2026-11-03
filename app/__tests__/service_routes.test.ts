@@ -2,6 +2,8 @@ import express from 'express'
 import request from 'supertest'
 import { vi } from 'vitest'
 
+import serviceRoutes from '../service_routes.ts'
+
 import type { NextFunction, Request, Response } from 'express'
 
 const {
@@ -100,8 +102,6 @@ vi.mock('../resources/services/index.ts', () => ({
   },
 }))
 
-import serviceRoutes from '../service_routes.ts'
-
 describe('service_routes router wiring', () => {
   const app = express()
   app.use('/services', serviceRoutes)
@@ -161,7 +161,7 @@ describe('service_routes router wiring', () => {
     expect(response.statusCode).toBe(404)
     expect(response.body).toEqual({
       status: 404,
-      error: 'Not found. Did you mispell something?',
+      error: 'Not found. Did you misspell something?',
     })
   })
 })

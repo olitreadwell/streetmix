@@ -32,14 +32,20 @@ export interface Segment {
   elevationChanged?: boolean
   slope: SlopeProperties
   variant: Record<string, string>
-  warnings: boolean[]
   label?: string
 }
+
 export type SliceItem = Segment // Alias for future use
-export type SliceItemForServerTransmission = Omit<
-  SliceItem,
-  'variant' | 'warnings'
->
+export type SliceItemForServerTransmission = Omit<SliceItem, 'variant'>
+
+export interface SliceWarnings {
+  outOfBounds: boolean
+  tooNarrow: boolean
+  tooWide: boolean
+  dangerousExisting: boolean
+  slopeBermExceeded: boolean
+  slopePathExceeded: boolean
+}
 
 export interface SlopeProperties {
   on: boolean
@@ -178,7 +184,7 @@ export interface StreetPluginData {
 
 export interface CoastmixState {
   controlsVisible: boolean
-  seaLevelRise: number
+  targetYear: number | null
   stormSurge: boolean
   floodDetails: [FloodDetails | null, FloodDetails | null]
 }
@@ -194,6 +200,7 @@ export type FloodDistance = number | null | 'max'
 export interface FloodDetails {
   direction: 'left' | 'right'
   distance: FloodDistance
+  rise: number
   floodedTypes: string[]
   flooded: boolean
 }

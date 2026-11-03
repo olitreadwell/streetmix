@@ -30,6 +30,7 @@
 } */
 .shepherd-button {
   padding: 0.35em 1.15em;
+  font-size: 1.1rem;
 }
 
 .tour-dialog .shepherd-button {
@@ -41,8 +42,8 @@
   border-bottom-right-radius: 5px;
   display: flex;
   justify-content: flex-end;
-  padding: 0 0.75rem 0.75rem;
-  gap: 0.5em;
+  padding: 0.5em 1em 1em;
+  gap: 0.75em;
 }
 
 .shepherd-footer .shepherd-button:last-child {
@@ -54,14 +55,14 @@
   border-radius: var(--border-radius-pill);
   color: var(--color-turquoise-800);
   cursor: pointer;
-  font-size: 1.1em;
+  font-size: 1.6em;
   font-weight: 200;
   margin: 0;
   padding: 0;
   width: 24px;
   height: 24px;
   position: absolute;
-  inset-block-start: 4px;
+  inset-block-start: 7px;
   inset-inline-end: 4px;
   display: flex !important;
   justify-content: center;
@@ -86,20 +87,20 @@
 .shepherd-title {
   color: var(--color-turquoise-900);
   margin: 0;
-  line-height: 1;
-  font-size: 1.1em;
-  font-weight: 500;
+  line-height: 1.2;
+  font-size: 1.25rem;
+  font-family: Manrope, sans-serif;
+  font-weight: 400;
   width: 100%;
 }
 
 .shepherd-has-title .shepherd-content .shepherd-header {
-  border-bottom: 1px solid var(--color-turquoise-200);
-  padding: 0.75em 1em 0.5em;
+  background-color: var(--color-turquoise-200);
+  padding: 0.8em 1em 0.6em;
 }
 
 /* Matches <Dialog /><h2> */
 .tour-dialog .shepherd-title {
-  color: var(--color-turquoise-900);
   margin: 0;
   line-height: 1;
   font-size: 180%;
@@ -122,12 +123,30 @@
 .tour-dialog.shepherd-has-title .shepherd-content .shepherd-header {
   padding: 2em 1em;
   background-color: var(--color-turquoise-200);
+  color: var(--color-turquoise-900);
+}
+
+.tour-dialog {
+  max-width: 550px;
+
+  .shepherd-text {
+    font-size: 15px;
+    padding: 1rem 2rem 1.5rem;
+  }
+
+  .shepherd-footer {
+    padding: 0 2rem 1.5rem;
+
+    .shepherd-button {
+      font-size: 15px;
+    }
+  }
 }
 
 .shepherd-text {
   color: rgb(65 65 65);
-  font-size: 1rem;
-  line-height: 1.3em;
+  font-size: 1.1rem;
+  line-height: 1.4;
   padding: 0.75em 1em;
 }
 
@@ -143,6 +162,7 @@
   border-radius: var(--border-radius-large);
   outline: none;
   padding: 0;
+  overflow: hidden;
 }
 
 .shepherd-element {
@@ -281,7 +301,7 @@
 }
 
 .tour-medium-width {
-  max-width: 250px;
+  max-width: 280px;
 }
 
 .tour-highlight {
@@ -308,16 +328,4 @@
 
 .shepherd-btn-center {
   margin: 0 auto !important; /* Overrides .shepherd-button:last-child */
-}
-
-.tour-dialog {
-  max-width: 500px;
-
-  .shepherd-text {
-    padding: 1rem 2rem 1.5rem;
-  }
-
-  .shepherd-footer {
-    padding: 0 2rem 1.5rem;
-  }
 }

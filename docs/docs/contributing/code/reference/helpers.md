@@ -57,4 +57,4 @@ In the above example, we call `seedrandom()` twice, with the same `seed`, so tha
 
 The [Axios](https://github.com/axios/axios) library was introduced as a recommendation over native `fetch` as a way to manage requests to the Streetmix back-end API layer. Additionally, Axios Mock Adapter offers the possibility to mock all API requests for integration testing.
 
-If you work on API-related features, consider refactoring the `fetch` calls to use the API in `.assets/scripts/util/api.js`.
+If you work on API-related features, consider refactoring the `fetch` calls to use the API in `client/src/util/api.ts`.

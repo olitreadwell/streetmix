@@ -50,7 +50,7 @@ if (process.env.DATABASE_URL) {
 process.env.NODE_ENV = process.env.NODE_ENV ?? 'development'
 
 // Heroku requires SSL connections to Postgres. As of the date of this
-// commit, hobby-tier and some some older database instances do not yet
+// commit, hobby-tier and some older database instances do not yet
 // enforce SSL, which can cause the app's database to throw the error "self
 // signed certificate." So we must enable SSL but also set `rejectUnauthorized`
 // to `false` to handle those app instances.

@@ -269,6 +269,7 @@
       "option-labels": "የአነስተኛ ክፍልፋዮች ስሞች እና ስፋቶች  ",
       "option-name": "የመንገድ ስም ",
       "option-sky": "ግልጽ ሰማይ ",
+      "option-sea-level-rise": "",
       "option-watermark": "ዋተርማርክ",
       "option-custom-scale": "",
       "option-custom-scale-description": "",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, one {# ወለል} other {# ወለሎች}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "ይህ የመንገድ ክፍል በጎዳና ላይ አይገጥምም",
       "not-wide": "ይህ  የመንገድ ክፍል ሰፊ ላይሆን ይችላል",
       "too-wide": "ይህ የመንገድ ክፍል በጣም ሰፊ ሊሆን ይችላል",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "የበለጠ ይወቁ",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "ዝቅተኛ",
-      "max": "ከፍተኛ"
+      "max": "ከፍተኛ",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

@@ -8,7 +8,7 @@
   perspective: 500px;
   touch-action: none;
 
-  > button {
+  .slice-button {
     width: 100%;
     height: 100%;
   }
@@ -34,7 +34,7 @@ body:not(.segment-resize-dragging) .segment {
     transform 150ms;
 }
 
-body.immediate-segment-resize .segment {
+body.immediate-slice-resize .segment {
   transition: none !important;
 }
 
