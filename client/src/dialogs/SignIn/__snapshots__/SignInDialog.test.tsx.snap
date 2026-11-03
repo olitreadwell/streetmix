@@ -12,6 +12,8 @@ exports[`SignInDialog > renders 1`] = `
       class="dialog-box-display-area"
     >
       <div
+        aria-labelledby="_r_1_"
+        aria-modal="true"
         class="dialog-box"
         role="dialog"
       >
@@ -27,7 +29,9 @@ exports[`SignInDialog > renders 1`] = `
           class="sign-in-dialog"
         >
           <header>
-            <h1>
+            <h1
+              id="_r_1_"
+            >
               Sign in / Sign up
             </h1>
           </header>

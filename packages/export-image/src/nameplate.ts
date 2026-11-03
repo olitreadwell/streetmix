@@ -55,7 +55,7 @@ export function drawNameplate(
   }px ${fontFamily}`
 
   // Handles long names
-  // Measurements need to be devided by `scale` because they are rendered
+  // Measurements need to be divided by `scale` because they are rendered
   // at scaled font size
   let measurement = ctx.measureText(text).width / scale
   let needToBeElided = false

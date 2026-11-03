@@ -269,6 +269,7 @@
       "option-labels": "Namen en breedtes van segmenten",
       "option-name": "Straatnaam",
       "option-sky": "Transparante hemel",
+      "option-sea-level-rise": "",
       "option-watermark": "Watermerk",
       "option-custom-scale": "Aangepaste schaal",
       "option-custom-scale-description": "Download afbeelding tot 500 % van de oorspronkelijke grootte.",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, one {# verdieping} other {# verdiepingen}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "Dit segment past niet in de straat.",
       "not-wide": "",
       "too-wide": "",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "",
-      "max": ""
+      "max": "",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

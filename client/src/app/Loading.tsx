@@ -1,10 +1,14 @@
 import { useLayoutEffect, useRef } from 'react'
 
 import { STREETMIX_INSTANCE } from './config.js'
+import './Loading.css'
 
 interface LoadingProps {
   isLoading: boolean
 }
+
+/* TODO: exists outside of i18n tree; cannot translate right now. */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
 
 export function Loading({ isLoading = true }: LoadingProps) {
   const loadingStuckNotice = useRef<HTMLDivElement>(null)

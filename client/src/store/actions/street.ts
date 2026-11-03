@@ -2,6 +2,7 @@ import clone from 'just-clone'
 
 import { ERRORS } from '~/src/app/errors.js'
 import { formatMessage } from '~/src/locales/locale.js'
+import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
 import {
   RESIZE_TYPE_INCREMENT,
   RESIZE_TYPE_PRECISE_DRAGGING,
@@ -37,7 +38,9 @@ import {
 } from '../slices/street.js'
 import { setInfoBubbleMouseInside } from '../slices/infoBubble.js'
 import { setActiveSegment, setImmediateRemoval } from '../slices/ui.js'
+import { setSliceWarnings } from '../slices/warnings.js'
 
+import { setFloodDetails } from '../slices/coastmix.js'
 import type { Dispatch, RootState } from '../index.js'
 import type {
   SliceItem,
@@ -69,7 +72,8 @@ export function updateStreetDataAction(data: Partial<StreetState>) {
 
 export const segmentsChanged = (force = false) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const { street } = getState()
+    const { street, coastmix } = getState()
+    const { targetYear, stormSurge } = coastmix
 
     const calculatedWidths = recalculateWidth(street)
 
@@ -90,8 +94,6 @@ export const segmentsChanged = (force = false) => {
         // This shallow-copies the original data, which is generally fine
         // for everything but two properties
         ...slice,
-        // This will be appended to by `applyWarningsToSlices`
-        warnings: [false],
         // This will be modified by slope calculation
         slope: {
           on: slice.slope.on ?? false,
@@ -99,20 +101,27 @@ export const segmentsChanged = (force = false) => {
         },
       }
     })
-
-    const updatedSlices = applyWarningsToSlices(
-      clonedSlices,
-      street,
-      calculatedWidths
-    )
-
     await dispatch(
       updateSegments(
-        updatedSlices,
+        clonedSlices,
         calculatedWidths.occupiedWidth.toNumber(),
         calculatedWidths.remainingWidth.toNumber()
       )
     )
+
+    const sliceWarnings = applyWarningsToSlices(
+      clonedSlices,
+      street,
+      calculatedWidths
+    )
+    await dispatch(setSliceWarnings(sliceWarnings))
+
+    // Calculate flood details
+    // This is using a stale version of `street` and might not include
+    // the updated occupiedWidth, remainingWidth etc? but it still seems to
+    // be okay.
+    const floodDetails = checkSeaLevel(street, targetYear, stormSurge)
+    dispatch(setFloodDetails(floodDetails))
 
     // ToDo: Refactor this out to be dispatched as well
     // Forcing a save is necessary when the data to be saved is not in the
@@ -238,7 +247,6 @@ const createStreetFromResponse = (response: StreetAPIResponse): StreetState => {
   street.location = response.data.street.location || null
   street.editCount = response.data.street.editCount || 0
   street.segments = street.segments.map((segment) => {
-    segment.warnings = [false]
     segment.variant = getVariantInfo(segment.type, segment.variantString)
     return segment
   })

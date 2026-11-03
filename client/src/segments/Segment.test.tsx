@@ -30,14 +30,13 @@ describe('Segment', () => {
         direction: 'inbound',
         'public-transit-asphalt': 'regular',
       },
-      id: '1',
+      id: 'slice-id',
       width: 5,
       elevation: 0,
       slope: {
         on: false,
         values: [],
       },
-      warnings: [],
     }
     initialState = {
       flags: {
@@ -49,9 +48,17 @@ describe('Segment', () => {
       ui: { activeSegment: activeElement },
       street: {
         showAnalytics: true,
-        boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+        boundary: {
+          left: { variant: 'wide', elevation: 0 },
+          right: { variant: 'wide', elevation: 0 },
+        },
         segments: [segment],
         width: 5,
+      },
+      warnings: {
+        slices: {
+          'slice-id': {},
+        },
       },
     }
   })

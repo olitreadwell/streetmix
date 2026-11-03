@@ -1,4 +1,5 @@
 import './app/globals.ts'
+import crypto from 'node:crypto'
 import path from 'node:path'
 import { styleText } from 'node:util'
 import compression from 'compression'
@@ -34,7 +35,6 @@ initCloudinary()
 // Build SVG sprites before starting Express server
 await Promise.all([
   compileSVGSprites('packages/variant-icons/icons/', 'icons', 'icon'),
-  compileSVGSprites('client/images/illustrations', 'illustrations', 'image'),
   compileSVGSprites('packages/illustrations/images/', 'images', 'image'),
 ])
 
@@ -68,6 +68,7 @@ process.on('SIGINT', function () {
 // Pass environment variables to handlebars templates
 app.locals.env = {
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+  PLAUSIBLE_ID: process.env.PLAUSIBLE_ID,
   WEB_MONETIZATION_PAYMENT_POINTER:
     process.env.WEB_MONETIZATION_PAYMENT_POINTER,
 }
@@ -87,7 +88,10 @@ const helmetConfig = {
   },
 }
 
-// CSP directives are defined separately so we can generate nonces
+// Generate nonces for inline scripts
+const nonces = {
+  plausible: crypto.randomBytes(16).toString('hex'),
+}
 
 // Extract the type of the `csp` object shape from Helmet, but we will not
 // yet attach the type until we are ready to pass it to Helmet. This allows us
@@ -116,6 +120,7 @@ const csp = {
       process.env.PELIAS_HOST_NAME ?? '',
       'checkout.stripe.com',
       'plausible.io',
+      `'nonce-${nonces.plausible}'`,
       'static.cloudflareinsights.com',
       'static.userback.io',
     ],
@@ -155,7 +160,11 @@ const csp = {
       '*.wp.com',
       'cdn.auth0.com', // Auth0 default profile images
     ],
-    fontSrc: ["'self'", 'static.userback.io'],
+    fontSrc: [
+      "'self'",
+      'static.userback.io',
+      'cdn.jsdelivr.net', // Allows fontsource hosted fonts
+    ],
     connectSrc: [
       "'self'",
       process.env.PELIAS_HOST_NAME ?? '',
@@ -191,9 +200,17 @@ app.use(helmet(helmetConfig))
 app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
+const cookieSessionSecret = process.env.COOKIE_SESSION_SECRET
+
+if (!cookieSessionSecret && process.env.NODE_ENV === 'production') {
+  throw new Error(
+    'COOKIE_SESSION_SECRET must be set before starting the production server. See docs/docs/contributing/code/local-setup.md.'
+  )
+}
+
 app.use(
   cookieSession({
-    secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
+    secret: cookieSessionSecret || 'streetmix-development-session-secret',
     sameSite: 'strict',
   })
 )
@@ -207,7 +224,7 @@ app.use(passport.session())
 const metatagImage =
   process.env.STREETMIX_INSTANCE !== 'coastmix'
     ? 'https://streetmix.net/images/thumbnail.png'
-    : 'https://coastmix.streetmix.app/images/thumbnail-coastmix.png'
+    : 'https://coastmix.org/images/thumbnail-coastmix.png'
 const metatagTitle =
   process.env.STREETMIX_INSTANCE !== 'coastmix' ? 'Streetmix' : 'Coastmix'
 const metatagDescription =
@@ -217,10 +234,8 @@ const metatagDescription =
 
 // Set variables for use in view templates
 app.use((req, res, next) => {
-  // Generate nonces for inline scripts
-  res.locals.nonce = {
-    // Currently: we use none
-  }
+  // Send nonces to template
+  res.locals.nonces = nonces
 
   // Set default metatag information for social sharing cards
   res.locals.STREETMIX_IMAGE = {

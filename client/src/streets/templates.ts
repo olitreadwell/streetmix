@@ -102,7 +102,6 @@ function processTemplateSlices(
     const slice = {
       ...clone(sliceTemplate),
       id: nanoid(),
-      warnings: [false],
       // Initialize a slope property, if not present
       slope: processSlope(sliceTemplate.slope, units),
     } as SliceItem

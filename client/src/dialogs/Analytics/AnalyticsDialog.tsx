@@ -25,6 +25,7 @@ import './AnalyticsDialog.css'
 export function AnalyticsDialog() {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
+  const warnings = useSelector((state) => state.warnings.slices)
   const dispatch = useDispatch()
   const intl = useIntl()
   const max = useRef(0)
@@ -36,7 +37,7 @@ export function AnalyticsDialog() {
   }
 
   const capacityData = getCapacityData(street.capacitySource)
-  const capacity = getStreetCapacity(street)
+  const capacity = getStreetCapacity(street, warnings)
   const options = { maximumSignificantDigits: 3 }
 
   const summary = (
@@ -74,7 +75,7 @@ export function AnalyticsDialog() {
     />
   )
 
-  const rolledUp = getRolledUpSegmentCapacities(street)
+  const rolledUp = getRolledUpSegmentCapacities(street, warnings)
 
   // Store the maximum capacity across renders, when the data source may
   // change. This way, data sources with lower values show more intuitive
@@ -128,6 +129,7 @@ export function AnalyticsDialog() {
                 />
               ))}
               <p>
+                {/* eslint-disable formatjs/no-literal-string-in-jsx */}
                 <strong>
                   <FormattedMessage
                     id="dialogs.analytics.source"
@@ -143,6 +145,7 @@ export function AnalyticsDialog() {
                   capacityData.source_title
                 )}
                 , {capacityData.source_author}
+                {/* eslint-enable formatjs/no-literal-string-in-jsx */}
               </p>
             </div>
             <hr />

@@ -269,6 +269,7 @@
       "option-labels": "Les noms des éléments de voirie et leurs largeurs",
       "option-name": "Nom de rue",
       "option-sky": "Ciel transparent",
+      "option-sea-level-rise": "",
       "option-watermark": "Filigrane",
       "option-custom-scale": "",
       "option-custom-scale-description": "",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, one {# étage} many {# étages} other {# étages}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "Cet élément de voirie ne s'insère pas dans la route.",
       "not-wide": "Cet élément de voirie pourrait ne pas être suffisant.",
       "too-wide": "Cet élément de voirie pourrait être trop large.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Apprenez en davantage",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "Min",
-      "max": "Max"
+      "max": "Max",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

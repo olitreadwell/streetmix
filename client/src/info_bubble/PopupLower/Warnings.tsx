@@ -1,32 +1,27 @@
+import { getSegmentInfo, SliceTypes } from '@streetmix/parts'
 import { FormattedMessage } from 'react-intl'
 
 // TODO: use <Icon />
 import alertIcon from 'url:~/images/warning_alert.svg'
 import errorIcon from 'url:~/images/warning_error.svg'
-import {
-  SLICE_WARNING_OUTSIDE,
-  SLICE_WARNING_WIDTH_TOO_SMALL,
-  SLICE_WARNING_WIDTH_TOO_LARGE,
-  SLICE_WARNING_DANGEROUS_EXISTING,
-  SLICE_WARNING_SLOPE_EXCEEDED_BERM,
-  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
-} from '~/src/segments/constants.js'
+import { useSelector } from '~/src/store/hooks.js'
 import './Warnings.css'
 
-import type { Segment } from '@streetmix/types'
+import type { SliceItem } from '@streetmix/types'
 
 interface WarningsProps {
-  segment?: Pick<Segment, 'warnings'>
+  slice?: Pick<SliceItem, 'id' | 'type'>
 }
 
-export function Warnings(props: WarningsProps) {
-  const { segment } = props
+export function Warnings({ slice }: WarningsProps) {
+  const sliceWarnings = useSelector((state) => state.warnings.slices)
   const messages = []
 
-  if (segment === undefined) return null
-  const warnings = segment.warnings ?? [false]
+  if (slice === undefined) return null
 
-  if (warnings[SLICE_WARNING_DANGEROUS_EXISTING]) {
+  const warnings = sliceWarnings[slice.id] ?? {}
+
+  if (warnings.dangerousExisting) {
     messages.push({
       type: 'alert',
       message: (
@@ -37,7 +32,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (warnings[SLICE_WARNING_OUTSIDE]) {
+  if (warnings.outOfBounds) {
     messages.push({
       type: 'error',
       message: (
@@ -48,7 +43,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (warnings[SLICE_WARNING_WIDTH_TOO_SMALL]) {
+  if (warnings.tooNarrow) {
     messages.push({
       type: 'error',
       message: (
@@ -59,7 +54,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (warnings[SLICE_WARNING_WIDTH_TOO_LARGE]) {
+  if (warnings.tooWide) {
     messages.push({
       type: 'error',
       message: (
@@ -70,10 +65,32 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (
-    warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
-    warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
+
+  const sliceType = getSegmentInfo(slice.type).owner
+  if (warnings.slopeBermExceeded && sliceType === SliceTypes.NATURE) {
+    messages.push({
+      type: 'error',
+      message: (
+        <FormattedMessage
+          id="segments.warnings.slope-exceeded-berm"
+          defaultMessage="This may be too steep for vegetation."
+        />
+      ),
+    })
+  } else if (
+    warnings.slopePathExceeded &&
+    sliceType === SliceTypes.PEDESTRIAN
   ) {
+    messages.push({
+      type: 'error',
+      message: (
+        <FormattedMessage
+          id="segments.warnings.slope-exceeded-path"
+          defaultMessage="This may be too steep for people."
+        />
+      ),
+    })
+  } else if (warnings.slopeBermExceeded || warnings.slopePathExceeded) {
     messages.push({
       type: 'error',
       message: (

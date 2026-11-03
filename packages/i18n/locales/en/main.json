@@ -269,6 +269,7 @@
       "option-labels": "Segment names and widths",
       "option-name": "Street name",
       "option-sky": "Transparent sky",
+      "option-sea-level-rise": "Sea level rise",
       "option-watermark": "Watermark",
       "option-custom-scale": "Custom scale",
       "option-custom-scale-description": "Download image up to 500% of original size.",
@@ -365,7 +366,7 @@
       "messages": {
         "start": "Select a sea level rise target to visualize flooding.",
         "need-waterfront": "Add a waterfront boundary to visualize flooding.",
-        "success": "This configuration is addressing sea level rise!",
+        "success": "This configuration addresses sea level rise!",
         "fail": "This configuration does not address sea level rise!"
       }
     }
@@ -457,13 +458,19 @@
     "label2": "Height",
     "floors-count": "{count, plural, one {# floor} other {# floors}}"
   },
+  "boundary": {
+    "left-label": "Left boundary",
+    "right-label": "Right boundary"
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "This doesn’t fit within the street.",
       "not-wide": "This may not be wide enough.",
       "too-wide": "This may be too wide.",
       "dangerous": "This is a dangerous existing condition.",
-      "slope-exceeded": "This may be too steep."
+      "slope-exceeded": "This may be too steep.",
+      "slope-exceeded-berm": "This may be too steep for vegetation.",
+      "slope-exceeded-path": "This may be too steep for people."
     },
     "learn-more": "Learn more",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "Min",
-      "max": "Max"
+      "max": "Max",
+      "left": "Resize left",
+      "right": "Resize right"
     },
     "controls": {
       "width": "Width",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "New waterfront",
-    "templates": {
-      "harborwalk": "Harborwalk",
-      "coastal-road": "Coastal road",
-      "beach": "Beach"
-    }
+    "new-empty": "New empty waterfront",
+    "new-from-examples": "From examples..."
   },
   "i18n": {
     "lang": {

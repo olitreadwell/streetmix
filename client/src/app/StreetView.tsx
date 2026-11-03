@@ -1,20 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { useDispatch, useSelector } from '~/src/store/hooks.js'
+import { useSelector } from '~/src/store/hooks.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
 import { Boundary } from '~/src/boundary/index.js'
 import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer.js'
 import { SeaLevel } from '~/src/plugins/coastmix/index.js'
-import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
-import { setFloodDistance } from '~/src/store/slices/coastmix.js'
 import { ResizeGuides } from '../segments/ResizeGuides.js'
 import { EmptySegmentContainer } from '../segments/EmptySegmentContainer.js'
-import { animate, getElAbsolutePos } from '../util/helpers.js'
+import { animate } from '../util/helpers.js'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants.js'
 import {
   TILE_SIZE,
   DRAGGING_TYPE_RESIZE,
-  BUILDING_SPACE,
+  BOUNDARY_WIDTH,
 } from '../segments/constants.js'
 import { updateStreetMargin } from '../segments/resizing.js'
 import { SkyBox } from '../sky/SkyBox/index.js'
@@ -87,7 +85,7 @@ export function StreetView() {
   })
   const [scrollPos, setScrollPos] = useState(0)
   const [resizeType, setResizeType] = useState<number>()
-  const [boundaryWidth, setBoundaryWidth] = useState(BUILDING_SPACE)
+  const [boundaryWidth, setBoundaryWidth] = useState(BOUNDARY_WIDTH)
 
   const sectionEl = useRef<HTMLElement>(null)
   const sectionCanvasEl = useRef<HTMLCanvasElement>(null)
@@ -95,12 +93,9 @@ export function StreetView() {
 
   const street = useSelector((state) => state.street)
   const draggingType = useSelector((state) => state.ui.draggingType)
-  const { seaLevelRise, stormSurge } = useSelector((state) => state.coastmix)
   const coastmixMode = useSelector(
     (state) => state.flags.COASTMIX_MODE.value ?? false
   )
-
-  const dispatch = useDispatch()
 
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevState = usePrevious({
@@ -115,7 +110,7 @@ export function StreetView() {
     const viewportWidth = window.innerWidth
     const streetWidth = street.width * TILE_SIZE
     let streetSectionCanvasLeft =
-      (viewportWidth - streetWidth) / 2 - BUILDING_SPACE
+      (viewportWidth - streetWidth) / 2 - BOUNDARY_WIDTH
 
     if (streetSectionCanvasLeft < 0) {
       streetSectionCanvasLeft = 0
@@ -124,20 +119,8 @@ export function StreetView() {
     sectionCanvasEl.current.style.width = streetWidth + 'px'
     sectionCanvasEl.current.style.left = streetSectionCanvasLeft + 'px'
 
-    // Since flooding relies on sectionCanvasEl width being set, calculate
-    // flood distance here. This can change if we start calculating
-    // distance in actual distance values rather than on screen pixel values.
-    const floodDistance = checkSeaLevel(
-      street,
-      slicesEl.current,
-      sectionCanvasEl.current,
-      seaLevelRise,
-      stormSurge
-    )
-    dispatch(setFloodDistance(floodDistance))
-
     return STREETVIEW_RESIZED
-  }, [street, dispatch, seaLevelRise, stormSurge])
+  }, [street.width])
 
   const handleStreetResize = useCallback(() => {
     // Place all scroll-based positioning effects inside of a "raf"
@@ -291,13 +274,27 @@ export function StreetView() {
     animate(el, { scrollLeft: newScrollLeft }, 300)
   }
 
+  /**
+   * Boundary width is usually fixed to BOUNDARY_WIDTH, but can grow to fill
+   * the remaining space if the street section or the viewport is wider than
+   * the street width + building space. This function is triggered by actions
+   * that can cause either of those conditions to be true (a slice resize action,
+   * or a viewport resize action)
+   *
+   * The provided element is the main container of the StreetEditable component.
+   * When something in that component calls this function, the boundary width
+   * needs to be recalculated.
+   *
+   * TODO: There is probably a better way to do this. This interacts with
+   * tracking scroll position, etc.
+   */
   function getBoundaryWidth(el: HTMLElement | null): void {
     if (el === null) return
-    const pos = getElAbsolutePos(el)
+    const left = el.getBoundingClientRect().left + getStreetScrollPosition()
 
-    let width = pos[0]
-    if (width < 0) {
-      width = 0
+    let width = left
+    if (width < BOUNDARY_WIDTH) {
+      width = BOUNDARY_WIDTH
     }
 
     setBoundaryWidth(width)
@@ -318,9 +315,8 @@ export function StreetView() {
   function updatePerspective(el: HTMLElement | null): void {
     if (el === null) return
 
-    const pos = getElAbsolutePos(el)
-    const scrollPos = getStreetScrollPosition()
-    const perspective = -(pos[0] - scrollPos - window.innerWidth / 2)
+    const left = el.getBoundingClientRect().left
+    const perspective = -(left - window.innerWidth / 2)
 
     el.style.perspectiveOrigin = perspective / 2 + 'px 50%'
   }

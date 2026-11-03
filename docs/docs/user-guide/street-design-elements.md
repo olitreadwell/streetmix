@@ -49,7 +49,7 @@ _need source tying lane width to maximum car speed and safety_
 - **Subtypes:** Inbound, outbound, combined with through lane
 - **Default width:** 10 ft (3.0m) (same as typical lane)
 - **Minimum width:** 10 ft (3.0m) (per [AASHTO 2001](https://gist.github.com/louh/9ed5e8585878db8034c6))
-- **Maximum width:** 12 ft (4.8m) (same as typical lane)
+- **Maximum width:** 12 ft (3.6m) (same as typical lane)
 - **References:** [AASHTO 2001 Green Book - Chapter 4 - Lane Widths (pp 315-316)](https://gist.github.com/louh/9ed5e8585878db8034c6)
 
 Turn lanes are typically provided on major streets to provide a refuge for cars turning into cross-streets, side streets, or sometimes even into a parking lot. At intersections, space for turn lanes are often created by removing a parking lane, or by converting a through lane to a turn lane (and dual-purpose through/turn lanes exist as well). If the street is particularly wide, a median can be provided between the directional lanes, and the turn lane occupies the space where the median was when needed. On streets with a lot of possible turns, using a continuous center turn lane is common.
@@ -59,7 +59,7 @@ Turn lanes are typically provided on major streets to provide a refuge for cars 
 - **Full name:** Continuous two-way left-hand turn lane
 - **Default width:** 12 ft (3.6m) (Used as a default for an 80' collector road by the Las Vegas Unified Development Code 19.04.190)
 - **Minimum width:** 10 ft (3.0m) (per [AASHTO 2001](https://gist.github.com/louh/9ed5e8585878db8034c6))
-- **Maximum width:** 16 ft (4.8m) (per [AASHTO 2001](https://gist.github.com/louh/9ed5e8585878db8034c6))
+- **Maximum width:** 16 ft (4.9m) (per [AASHTO 2001](https://gist.github.com/louh/9ed5e8585878db8034c6))
 - **Markings:** yellow solid line with yellow dashed lines on the inside
 - **References:** [AASHTO 2001 Green Book - Chapter 4 - Lane Widths (pp 315-316)](https://gist.github.com/louh/9ed5e8585878db8034c6)
 

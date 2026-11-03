@@ -31,15 +31,19 @@ const SEGMENT_LOOKUP: Record<string, SegmentDefinition> =
  * in visualizations and data to calculate how much space is taken
  * up by different modes or uses.
  */
-export const SegmentTypes = {
-  NONE: 'none',
-  CAR: 'car',
-  BIKE: 'bike',
-  PEDESTRIAN: 'pedestrian',
-  TRANSIT: 'transit',
-  NATURE: 'nature',
-  FLEX: 'flex',
-  UTILITY: 'utility',
+export const SliceTypes = {
+  NONE: 'NONE', // nothing should use this if possible
+  CAR: 'CAR', // all motor vehicles, including ridesharing
+  TRANSIT: 'TRANSIT', // all public transit vehicles
+  BIKE: 'BIKE', // "micromobility" vehicles which include scooters and e-bikes
+  PEDESTRIAN: 'PEDESTRIAN', // people walking on foot
+  FURNITURE: 'FURNITURE', // temporary or permanent objects in pedestrian zones
+  FLEX: 'FLEX', // areas defined as a "flex zone". objects in this zone should
+  // be classified as car, bike, furniture, etc.
+  UTILITY: 'UTILITY', // infrastructure, like power lines
+  WALL: 'WALL', // specific infrastructure type for walls
+  DRAINAGE: 'DRAINAGE', // specific infrastructure for drainage, bioswales
+  NATURE: 'NATURE', // landscaped or natural areas
 }
 
 /**
@@ -91,11 +95,14 @@ function createSegmentDefinition([key, obj]: [
  * Returns all segment data as an array.
  * Object keys are converted to an `id` property for each segment.
  */
-export function getAllSegmentInfo() {
+export function getAllSliceInfo() {
   return Object.entries(
     SEGMENT_LOOKUP_SOURCE as Record<string, SegmentLookup>
   ).map(createSegmentDefinition)
 }
+
+// Alias
+export const getAllSegmentInfo = getAllSliceInfo
 
 /**
  * Gets segment data for segment `type`. Safer than reading `type` directly
@@ -103,11 +110,14 @@ export function getAllSegmentInfo() {
  * placeholder if the type is not found. The unknown segment placeholder
  * allows means bad data, experimental segments, etc. won't break rendering.
  */
-export function getSegmentInfo(
+export function getSliceInfo(
   type: string
 ): SegmentDefinition | UnknownSegmentDefinition {
   return SEGMENT_LOOKUP[type] ?? SEGMENT_UNKNOWN
 }
+
+// Alias
+export const getSegmentInfo = getSliceInfo
 
 /**
  * Retrieves the necessary information required to map the old segment data

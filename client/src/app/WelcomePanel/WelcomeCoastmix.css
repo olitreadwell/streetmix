@@ -1,0 +1,11 @@
+.welcome-coastmix {
+  p {
+    text-align: left;
+  }
+
+  .welcome-panel-buttons {
+    margin-top: 2em;
+    margin-bottom: 1em;
+    font-size: 14px;
+  }
+}

@@ -156,10 +156,10 @@ We recommend using [Git Bash](https://gitforwindows.org/) or [Windows Powershell
 git clone https://github.com/streetmix/streetmix.git
 ```
 
-2. Change the directory to Streetmix's root directory, and install project dependencies.
+2. Change the directory to Streetmix's root directory, install project dependencies, and run the build process.
 
 ```shell-session
-cd streetmix && npm install
+cd streetmix && npm install && npm run build
 ```
 
 :::caution
@@ -186,8 +186,8 @@ If the PostgreSQL username is the same as your operating system's current userna
 4. Initialize the PostgreSQL database.
 
 ```shell-session
-npx sequelize db:create
-npx sequelize db:migrate
+NODE_ENV=development npx sequelize db:create
+NODE_ENV=development npx sequelize db:migrate
 NODE_ENV=test npx sequelize db:create
 NODE_ENV=test npx sequelize db:migrate
 ```
@@ -263,7 +263,8 @@ Streetmix will run without these keys. Some non-critical functionality may be li
 | `NEW_RELIC_LICENSE_KEY`            | New Relic monitoring API key                      | No       |
 | `PELIAS_API_KEY`                   | Geocoding (Pelias) API key                        | No       |
 | `PELIAS_HOST_NAME`                 | Geocoding (Pelias) API server                     | No       |
-| `PLAUSIBLE_DOMAIN`                 | Analytics (Plausible) domain to track             | No       |
+| `CARTO_API_KEY`                    | Basemaps (Carto) API key                          | No       |
+| `PLAUSIBLE_ID`                     | Analytics (Plausible) tracking snippet ID         | No       |
 | `TRANSIFEX_API_TOKEN`              | Translations (Transifex) API token                | No       |
 | `WEB_MONETIZATION_PAYMENT_POINTER` | Payment pointer for Web Monetization API payments | No       |
 
@@ -290,12 +291,12 @@ A `DATABASE_URL` may be provided by hosting services with database add-ons, like
 
 These optional keys may be set to adjust functionality.
 
-| Variable name           | Description                                                                                                                       | Required |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `COOKIE_SESSION_SECRET` | A secret key for verifying the integrity of signed cookies. If your environment can securely generate or rotate secrets, do that. | No       |
-| `DEBUG`                 | If `true`, turns on verbose debug logging.                                                                                        | No       |
-| `OFFLINE_MODE`          | If `true`, set ["offline mode"](#offline-mode) to make the app work without Internet access.                                      | No       |
-| `STREETMIX_INSTANCE`    | Streetmix instance identifier                                                                                                     | No       |
+| Variable name           | Description                                                                                                                                                                                     | Required |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `COOKIE_SESSION_SECRET` | A secret key for verifying the integrity of signed cookies. Required in production; the server fails to start without it. If your environment can securely generate or rotate secrets, do that. | No       |
+| `DEBUG`                 | If `true`, turns on verbose debug logging.                                                                                                                                                      | No       |
+| `OFFLINE_MODE`          | If `true`, set ["offline mode"](#offline-mode) to make the app work without Internet access.                                                                                                    | No       |
+| `STREETMIX_INSTANCE`    | Streetmix instance identifier                                                                                                                                                                   | No       |
 
 #### Sample .env
 

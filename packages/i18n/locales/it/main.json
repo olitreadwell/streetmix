@@ -269,6 +269,7 @@
       "option-labels": "Nomi dei segmenti e larghezze",
       "option-name": "Nome della strada",
       "option-sky": "Cielo trasparente",
+      "option-sea-level-rise": "",
       "option-watermark": "Sovrimpressione",
       "option-custom-scale": "",
       "option-custom-scale-description": "",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, one {numero di piani} many {numero di piani} other {numero di piani}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "Il segmento non si adatta alla strada.",
       "not-wide": "Questo segmento non è abbastanza largo.",
       "too-wide": "Il segmento è troppo largo.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Per saperne di più",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "Min",
-      "max": "Max"
+      "max": "Max",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

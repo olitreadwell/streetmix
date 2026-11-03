@@ -91,11 +91,17 @@ export function MenusContainer() {
     setActiveMenuItemNode(undefined)
   }
 
+  // When menus are active, don't allow pointer to interact with UI below
+  const classNames = ['menus-container']
+  if (activeMenu) {
+    classNames.push('menus-active')
+  }
+
   return (
     <>
       <MenuBar onMenuDropdownClick={handleMenuDropdownClick} />
       {/* Menus exist on a different z-index layer from the menu bar */}
-      <div className="menus-container">
+      <div className={classNames.join(' ')}>
         <HelpMenu
           isActive={activeMenu === 'help'}
           menuItemNode={activeMenuItemNode}

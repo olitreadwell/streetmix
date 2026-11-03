@@ -269,6 +269,7 @@
       "option-labels": "Namen und Breiten der Elemente",
       "option-name": "Straßenname",
       "option-sky": "Transparenter Himmel",
+      "option-sea-level-rise": "",
       "option-watermark": "",
       "option-custom-scale": "",
       "option-custom-scale-description": "",
@@ -457,13 +458,19 @@
     "label2": "",
     "floors-count": "{count, plural, one {# Stock} other {# Stöcke}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "Dieses Element passt nicht mehr in die Straße hinein.",
       "not-wide": "Dieses Element könnte zu schmal sein.",
       "too-wide": "Dieses Element könnte zu breit sein.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Erfahre mehr",
     "unknown": {
@@ -474,7 +481,9 @@
     },
     "resize": {
       "min": "Minimum",
-      "max": "Maximum"
+      "max": "Maximum",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +604,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

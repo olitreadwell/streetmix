@@ -176,14 +176,14 @@ export async function BTPTokenCheck(
     btpToken = await getBTPToken(newAccessToken)
   }
 
-  // express-sesion seems to indicate this line is all that would be needed to add to cookies
+  // express-session seems to indicate this line is all that would be needed to add to cookies
   req.session.btpToken = btpToken
-  // ..but it dosen't work unless we do this:
+  // ..but it doesn't work unless we do this:
   res.cookie('btpToken', btpToken)
   return next()
 }
 
-// passportjs dosen't handle refresh tokens as a strategy so we have to handle that ourselves
+// passportjs doesn't handle refresh tokens as a strategy so we have to handle that ourselves
 export async function refreshAccessToken(refreshToken: string) {
   try {
     const encodedAuth = btoa(
@@ -251,7 +251,7 @@ export async function connectUser(
     await addUserConnection(account, profile)
     await syncAccountStatus(account.auth0Id)
 
-    // first you redirect, the token dosen't seem present, but its in the session thereafter..
+    // first you redirect, the token doesn't seem present, but its in the session thereafter..
     res.redirect('/')
   } catch (error) {
     logger.error(error)

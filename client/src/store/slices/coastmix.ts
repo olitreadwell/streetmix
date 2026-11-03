@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { CoastmixState, FloodDistance } from '@streetmix/types'
+import type { CoastmixState } from '@streetmix/types'
 
 const initialState: CoastmixState = {
   controlsVisible: false,
-  seaLevelRise: 0,
+  targetYear: null,
   stormSurge: false,
-  floodDistance: [null, null],
+  floodDetails: [null, null],
 }
 
 const coastmixSlice = createSlice({
@@ -40,15 +40,15 @@ const coastmixSlice = createSlice({
       state.controlsVisible = !state.controlsVisible
     },
 
-    setSeaLevelRise(state, action: PayloadAction<number>) {
-      state.seaLevelRise = action.payload
+    setTargetYear(state, action: PayloadAction<CoastmixState['targetYear']>) {
+      state.targetYear = action.payload
     },
 
-    setFloodDistance(
+    setFloodDetails(
       state,
-      action: PayloadAction<[FloodDistance, FloodDistance]>
+      action: PayloadAction<CoastmixState['floodDetails']>
     ) {
-      state.floodDistance = action.payload
+      state.floodDetails = action.payload
     },
 
     setStormSurge(state, action: PayloadAction<boolean>) {
@@ -63,8 +63,8 @@ export const {
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
   toggleCoastalFloodingPanel,
-  setSeaLevelRise,
-  setFloodDistance,
+  setTargetYear,
+  setFloodDetails,
   setStormSurge,
 } = coastmixSlice.actions
 

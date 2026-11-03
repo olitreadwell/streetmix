@@ -1,4 +1,4 @@
-import React, { useRef, useState, useLayoutEffect } from 'react'
+import { useRef, useState, useLayoutEffect } from 'react'
 
 import { useSelector, useDispatch } from '../store/hooks.js'
 import { deleteGalleryStreet } from '../store/slices/gallery.js'
@@ -12,11 +12,10 @@ import type { UserProfile } from '../types'
 import './GalleryContents.css'
 
 interface GalleryContentsProps {
-  ref: React.RefObject<HTMLDivElement | null>
   user?: UserProfile
 }
 
-export function GalleryContents({ ref, user }: GalleryContentsProps) {
+export function GalleryContents({ user }: GalleryContentsProps) {
   const streets = useSelector((state) => state.gallery.streets)
   const currentStreetId = useSelector((state) => state.street.id ?? null)
   const isOwnedByCurrentUser = useSelector(
@@ -36,7 +35,7 @@ export function GalleryContents({ ref, user }: GalleryContentsProps) {
       // Make sure the element exists -- sometimes it hasn't rendered yet,
       // or it's on another page.
       if (selectedEl) {
-        // Center the selected item when the view is first programatically
+        // Center the selected item when the view is first programmatically
         // rendered. Selecting the item manually will only scroll to nearest
         // position to minimize scrolling movement.
         let alignment: ScrollLogicalPosition = 'nearest'
@@ -44,16 +43,15 @@ export function GalleryContents({ ref, user }: GalleryContentsProps) {
           alignment = 'center'
           centerOnFirstRender.current = false
         }
-        selectedEl.scrollIntoView({ behavior: 'smooth', inline: alignment })
 
-        // We need this to prevent scrollIntoView from moving things
-        // upward and trying to reveal the hidden scrollbar area
-        if (ref.current?.parentElement) {
-          ref.current.parentElement.scrollTop = 0
-        }
+        selectedEl.scrollIntoView({
+          behavior: 'smooth',
+          inline: alignment,
+          block: 'nearest', // Prevent scrolling up to reveal hidden scrollbar
+        })
       }
     }
-  }, [ref, selectedStreet])
+  }, [selectedStreet])
 
   function selectStreet(streetId: string): void {
     centerOnFirstRender.current = false

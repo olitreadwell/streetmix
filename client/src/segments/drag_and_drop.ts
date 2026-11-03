@@ -1,24 +1,23 @@
 import { nanoid } from 'nanoid'
 import {
-  SegmentTypes,
+  SliceTypes,
   getSegmentInfo,
   getSegmentVariantInfo,
 } from '@streetmix/parts'
 import { getWidthInMetric } from '@streetmix/utils'
 
-import { setIgnoreStreetChanges } from '../streets/data_model'
-import { getElAbsolutePos } from '../util/helpers'
+import { setIgnoreStreetChanges } from '../streets/data_model.js'
 import store, { observeStore } from '../store'
-import { addSegment, moveSegment } from '../store/slices/street'
-import { removeSegmentAction } from '../store/actions/street'
+import { addSegment, moveSegment } from '../store/slices/street.js'
+import { removeSegmentAction } from '../store/actions/street.js'
 import {
   initDraggingState,
   updateDraggingState,
   clearDraggingState,
   setActiveSegment,
   setDraggingType,
-} from '../store/slices/ui'
-import { generateRandSeed } from '../util/random'
+} from '../store/slices/ui.js'
+import { generateRandSeed } from '../util/random.js'
 import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_DRAGGING,
@@ -28,8 +27,8 @@ import {
   resolutionForResizeType,
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions,
-} from './resizing'
-import { getVariantInfo, getVariantString } from './variant_utils'
+} from './resizing.js'
+import { getVariantInfo, getVariantString } from './variant_utils.js'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
@@ -38,8 +37,8 @@ import {
   DRAGGING_TYPE_MOVE,
   DRAGGING_TYPE_RESIZE,
   CURB_HEIGHT,
-} from './constants'
-import { segmentsChanged } from './view'
+} from './constants.js'
+import { segmentsChanged } from './view.js'
 
 import type {
   SliceItem,
@@ -74,7 +73,7 @@ export interface DraggedItem {
 
 export const draggingResize: {
   segmentEl: HTMLElement | null
-  floatingEl: HTMLElement | null
+  sliceIndex: number | null
   mouseX: number | null
   mouseY: number | null
   elX: number | null
@@ -85,7 +84,7 @@ export const draggingResize: {
   right: boolean
 } = {
   segmentEl: null,
-  floatingEl: null,
+  sliceIndex: null,
   mouseX: null,
   mouseY: null,
   elX: null,
@@ -116,7 +115,10 @@ export function initDragTypeSubscriber() {
   return observeStore(select, onChange)
 }
 
-function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
+export function handleSegmentResizeStart(
+  event: MouseEvent | TouchEvent,
+  sliceIndex: number
+): void {
   let x: number, y: number
 
   if ('touches' in event && event.touches[0]) {
@@ -132,41 +134,23 @@ function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
   setIgnoreStreetChanges(true)
 
   const el = (event.target as HTMLElement).closest(
-    '.drag-handle'
+    '.resize-handle'
   ) as HTMLElement
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_RESIZE))
 
-  const pos = getElAbsolutePos(el)
+  const rect = el.getBoundingClientRect()
 
-  draggingResize.right = el.classList.contains('drag-handle-right')
-
-  draggingResize.floatingEl = document.createElement('div')
-  draggingResize.floatingEl.classList.add('drag-handle')
-  draggingResize.floatingEl.classList.add('floating')
-
-  if (el.classList.contains('drag-handle-left')) {
-    draggingResize.floatingEl.classList.add('drag-handle-left')
-  } else {
-    draggingResize.floatingEl.classList.add('drag-handle-right')
-  }
-
-  draggingResize.floatingEl.style.left =
-    pos[0] -
-    (document.querySelector('#street-section-outer') as HTMLElement)
-      .scrollLeft +
-    'px'
-  draggingResize.floatingEl.style.top = pos[1] + 'px'
-  document.body.appendChild(draggingResize.floatingEl)
+  draggingResize.sliceIndex = sliceIndex
+  draggingResize.right = el.classList.contains('resize-handle-right')
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
 
-  draggingResize.elX = pos[0]
-  draggingResize.elY = pos[1]
+  draggingResize.elX = rect.left
+  draggingResize.elY = rect.top
 
   draggingResize.originalX = draggingResize.elX
-  const sliceIndex = Number((el.parentNode as HTMLElement).dataset.sliceIndex)
   draggingResize.originalWidth =
     store.getState().street.segments[sliceIndex].width
   draggingResize.segmentEl = el.parentNode as HTMLElement
@@ -174,7 +158,9 @@ function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
   draggingResize.segmentEl.classList.add('hover')
 
   window.setTimeout(function () {
-    draggingResize.segmentEl.classList.add('hover')
+    if (draggingResize.segmentEl) {
+      draggingResize.segmentEl.classList.add('hover')
+    }
   }, 0)
 }
 
@@ -200,10 +186,6 @@ function handleSegmentResizeMove(event: MouseEvent | TouchEvent): void {
   draggingResize.width =
     draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE) * 2
   draggingResize.elX += deltaX
-  draggingResize.floatingEl.style.left =
-    draggingResize.elX -
-    document.querySelector('#street-section-outer').scrollLeft +
-    'px'
 
   const precise = event.shiftKey
 
@@ -214,26 +196,13 @@ function handleSegmentResizeMove(event: MouseEvent | TouchEvent): void {
   }
 
   draggingResize.width = resizeSegment(
-    Number(draggingResize.segmentEl.dataset.sliceIndex),
+    draggingResize.sliceIndex,
     resizeType,
     draggingResize.width
   )
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
-}
-
-export function onBodyMouseDown(event: MouseEvent | TouchEvent): void {
-  const { readOnly } = store.getState().app
-
-  if (readOnly || ('touches' in event && event.touches.length !== 1)) {
-    return
-  }
-
-  if ((event.target as HTMLElement).closest('.drag-handle')) {
-    handleSegmentResizeStart(event)
-    event.preventDefault()
-  }
 }
 
 export function isSegmentWithinCanvas(
@@ -331,17 +300,17 @@ function doDropHeuristics(
   const right =
     segmentBeforeEl !== null ? (street.segments[segmentBeforeEl] ?? null) : null
 
-  const leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
-  const rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
+  const leftOwner = left && SliceTypes[getSegmentInfo(left.type).owner]
+  const rightOwner = right && SliceTypes[getSegmentInfo(right.type).owner]
 
   const leftOwnerAsphalt =
-    leftOwner === SegmentTypes.CAR ||
-    leftOwner === SegmentTypes.BIKE ||
-    leftOwner === SegmentTypes.TRANSIT
+    leftOwner === SliceTypes.CAR ||
+    leftOwner === SliceTypes.BIKE ||
+    leftOwner === SliceTypes.TRANSIT
   const rightOwnerAsphalt =
-    rightOwner === SegmentTypes.CAR ||
-    rightOwner === SegmentTypes.BIKE ||
-    rightOwner === SegmentTypes.TRANSIT
+    rightOwner === SliceTypes.CAR ||
+    rightOwner === SliceTypes.BIKE ||
+    rightOwner === SliceTypes.TRANSIT
 
   const leftVariant = left && getVariantInfo(left.type, left.variantString)
   const rightVariant = right && getVariantInfo(right.type, right.variantString)
@@ -351,7 +320,7 @@ function doDropHeuristics(
 
   // Direction
 
-  if (segmentInfo.variants.indexOf('direction') !== -1) {
+  if (segmentInfo.variants?.indexOf('direction') !== -1) {
     if (leftVariant && leftVariant.direction) {
       variant.direction = leftVariant.direction
     } else if (rightVariant && rightVariant.direction) {
@@ -361,7 +330,7 @@ function doDropHeuristics(
 
   // Parking lane orientation
 
-  if (segmentInfo.variants.indexOf('parking-lane-orientation') !== -1) {
+  if (segmentInfo.variants?.indexOf('parking-lane-orientation') !== -1) {
     if (!right || !rightOwnerAsphalt) {
       variant['parking-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
@@ -381,7 +350,7 @@ function doDropHeuristics(
 
   // Turn lane orientation
 
-  if (segmentInfo.variants.indexOf('turn-lane-orientation') !== -1) {
+  if (segmentInfo.variants?.indexOf('turn-lane-orientation') !== -1) {
     if (!right || !rightOwnerAsphalt) {
       variant['turn-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
@@ -392,14 +361,14 @@ function doDropHeuristics(
   // Transit shelter orientation and elevation
 
   if (type === 'transit-shelter') {
-    if (left && leftOwner === SegmentTypes.TRANSIT) {
+    if (left && leftOwner === SliceTypes.TRANSIT) {
       variant.orientation = 'right'
-    } else if (right && rightOwner === SegmentTypes.TRANSIT) {
+    } else if (right && rightOwner === SliceTypes.TRANSIT) {
       variant.orientation = 'left'
     }
   }
 
-  if (segmentInfo.variants.indexOf('transit-shelter-elevation') !== -1) {
+  if (segmentInfo.variants?.indexOf('transit-shelter-elevation') !== -1) {
     if (variant.orientation === 'right' && left && left.type === 'light-rail') {
       variant['transit-shelter-elevation'] = 'light-rail'
     } else if (
@@ -416,9 +385,9 @@ function doDropHeuristics(
   if (type === 'brt-station') {
     // Default orientation is center
     variant['brt-station-orientation'] = 'center'
-    if (left && leftOwner === SegmentTypes.TRANSIT) {
+    if (left && leftOwner === SliceTypes.TRANSIT) {
       variant['brt-station-orientation'] = 'right'
-    } else if (right && rightOwner === SegmentTypes.TRANSIT) {
+    } else if (right && rightOwner === SliceTypes.TRANSIT) {
       variant['brt-station-orientation'] = 'left'
     }
   }
@@ -426,16 +395,16 @@ function doDropHeuristics(
   // Bike rack orientation
 
   if (type === 'sidewalk-bike-rack') {
-    if (left && leftOwner !== SegmentTypes.PEDESTRIAN) {
+    if (left && leftOwner !== SliceTypes.PEDESTRIAN) {
       variant.orientation = 'left'
-    } else if (right && rightOwner !== SegmentTypes.PEDESTRIAN) {
+    } else if (right && rightOwner !== SliceTypes.PEDESTRIAN) {
       variant.orientation = 'right'
     }
   }
 
   // Lamp orientation
 
-  if (segmentInfo.variants.indexOf('lamp-orientation') !== -1) {
+  if (segmentInfo.variants?.indexOf('lamp-orientation') !== -1) {
     if (left && right && leftOwnerAsphalt && rightOwnerAsphalt) {
       variant['lamp-orientation'] = 'both'
     } else if (left && leftOwnerAsphalt) {
@@ -496,7 +465,7 @@ function doDropHeuristics(
   }
 }
 
-export function onBodyMouseUp(event: MouseEvent | TouchEvent): void {
+export function onBodyMouseUp(): void {
   const { draggingType } = store.getState().ui
 
   switch (draggingType) {
@@ -506,8 +475,6 @@ export function onBodyMouseUp(event: MouseEvent | TouchEvent): void {
       handleSegmentResizeEnd()
       break
   }
-
-  event.preventDefault()
 }
 
 function handleSegmentDragEnd(): void {

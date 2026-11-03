@@ -1,11 +1,11 @@
-import { round } from '@streetmix/utils'
+import { round } from 'es-toolkit'
 
-import { setIgnoreStreetChanges } from '../streets/data_model'
-import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
+import { setIgnoreStreetChanges } from '../streets/data_model.js'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants.js'
 import store from '../store'
 import { segmentsChanged } from '../store/actions/street.js'
-import { changeSegmentWidth } from '../store/slices/street'
-import { setDraggingType } from '../store/slices/ui'
+import { changeSegmentWidth } from '../store/slices/street.js'
+import { setDraggingType } from '../store/slices/ui.js'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
@@ -20,9 +20,9 @@ import {
   SEGMENT_WIDTH_RESOLUTION_METRIC,
   SEGMENT_WIDTH_CLICK_INCREMENT_METRIC,
   SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
-  BUILDING_SPACE,
-} from './constants'
-import { draggingResize } from './drag_and_drop'
+  BOUNDARY_WIDTH,
+} from './constants.js'
+import { draggingResize } from './drag_and_drop.js'
 
 import type { Segment, UnitsSetting } from '@streetmix/types'
 
@@ -56,7 +56,7 @@ export function resizeSegment(
 
 export function handleSegmentResizeCancel(): void {
   resizeSegment(
-    Number(draggingResize.segmentEl.dataset.sliceIndex),
+    draggingResize.sliceIndex,
     RESIZE_TYPE_INITIAL,
     draggingResize.originalWidth
   )
@@ -67,7 +67,7 @@ export function handleSegmentResizeCancel(): void {
 /**
  * Updates street section canvas margins when occupiedWidth is greater than default street extent
  *
- * The default street extent is equal to the street width + (2 * BUILDING_SPACE). When the occupiedWidth
+ * The default street extent is equal to the street width + (2 * BOUNDARY_WIDTH). When the occupiedWidth
  * is greater than the default street extent, the street-section-outer's scrollLeft no longer works properly.
  *
  * The solution to the above problem, is to update the street-section-canvas' margins and the building widths
@@ -91,12 +91,12 @@ export function updateStreetMargin(
     (document.querySelector('#street-section-outer') as HTMLElement)
 
   const prevMargin =
-    Number.parseInt(streetSectionCanvas.style.marginLeft, 10) || BUILDING_SPACE
+    Number.parseInt(streetSectionCanvas.style.marginLeft, 10) || BOUNDARY_WIDTH
   const { remainingWidth } = store.getState().street
   let streetMargin = Math.round((-remainingWidth * TILE_SIZE) / 2)
 
-  if (!streetMargin || streetMargin < BUILDING_SPACE) {
-    streetMargin = BUILDING_SPACE
+  if (!streetMargin || streetMargin < BOUNDARY_WIDTH) {
+    streetMargin = BOUNDARY_WIDTH
   }
 
   const deltaMargin = streetMargin - prevMargin
@@ -135,12 +135,7 @@ export function handleSegmentResizeEnd(): void {
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 
-  if (draggingResize.floatingEl) {
-    draggingResize.floatingEl.remove()
-  }
-  if (draggingResize.segmentEl) {
-    draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
-  }
+  window.dispatchEvent(new window.CustomEvent('stmx:TEMP_slice_resize_end'))
 }
 
 /**
@@ -201,9 +196,7 @@ export function resolutionForResizeType(
     case RESIZE_TYPE_DRAGGING:
       return getSegmentDragResizeResolution(units)
     default:
-      // Always return this resolution if `resizeType` is undefined or wrong value
-      // TODO: Remove when converted to TypeScript
-      return getSegmentWidthResolution(units)
+      throw new Error(`Unexpected value: ${resizeType}`)
   }
 }
 
@@ -270,8 +263,8 @@ export function normalizeAllSegmentWidths(
 }
 
 export function cancelSegmentResizeTransitions(): void {
-  document.body.classList.add('immediate-segment-resize')
+  document.body.classList.add('immediate-slice-resize')
   window.setTimeout(function () {
-    document.body.classList.remove('immediate-segment-resize')
+    document.body.classList.remove('immediate-slice-resize')
   }, SHORT_DELAY)
 }

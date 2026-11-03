@@ -12,6 +12,9 @@ interface SponsorBannerProps {
   linkText?: string
 }
 
+/* This is an English-locale only feature */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function SponsorBanner() {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
 
@@ -56,7 +59,7 @@ export function SponsorBanner() {
       <span>.</span>&nbsp;&nbsp;&nbsp;
       <span className="sponsor-banner-misc">
         <a
-          href="https://about.streetmix.net/sponsorship/"
+          href="https://about.streetmix.net/partners/"
           target="_blank"
           rel="noopener noreferrer"
         >

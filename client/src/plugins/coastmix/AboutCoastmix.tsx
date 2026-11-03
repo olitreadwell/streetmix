@@ -9,9 +9,11 @@ import michaelAvatar from 'url:./images/michael.jpg'
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import './AboutCoastmix.css'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function AboutCoastmix() {
   return (
-    <>
+    <div className="about-coastmix-section">
       <header className="about-coastmix-header">
         <div>
           <img
@@ -49,12 +51,19 @@ export function AboutCoastmix() {
       </header>
       <div className="dialog-content about-coastmix-content">
         <p>
-          Coastmix is a project by Streetmix and the City of Boston to design,
-          visualize and share resilient coasts. Create your ideal waterfront,
-          build coastal flood protection, and learn how climate change impacts
-          your community.{' '}
+          Coastmix is a project by{' '}
+          <a href="https://streetmix.net/" target="_blank" rel="noopener">
+            Streetmix
+          </a>{' '}
+          and the{' '}
+          <a href="https://boston.gov/" target="_blank" rel="noopener">
+            City of Boston
+          </a>{' '}
+          to design, visualize and share resilient coasts. Create your ideal
+          waterfront, build coastal flood protection, and learn how climate
+          change impacts your community.{' '}
           <a
-            href="https://www.boston.gov/coastmix"
+            href="https://www.boston.gov/departments/climate-resilience"
             target="_blank"
             rel="noopener"
           >
@@ -70,9 +79,7 @@ export function AboutCoastmix() {
               style={{ backgroundImage: `url(${catAvatar})` }}
             />
             <span className="team-member-name">Catherine McCandless</span>
-            <span className="team-member-title">
-              Senior Climate Resilience Project Manager
-            </span>
+            <span className="team-member-title">Senior Project Manager</span>
             <span className="team-member-title">
               Office of Climate Resilience
             </span>
@@ -92,9 +99,7 @@ export function AboutCoastmix() {
               style={{ backgroundImage: `url(${kellyAvatar})` }}
             />
             <span className="team-member-name">Kelly Sherman</span>
-            <span className="team-member-title">
-              Climate Resilience Project Manager
-            </span>
+            <span className="team-member-title">Project Manager</span>
             <span className="team-member-title">
               Office of Climate Resilience
             </span>
@@ -116,7 +121,7 @@ export function AboutCoastmix() {
             <span className="team-member-name">Michael Lawrence Evans</span>
             <span className="team-member-title">Director</span>
             <span className="team-member-title">
-              Office of Climate Resilience
+              Office of Emerging Technology
             </span>
           </div>
         </div>
@@ -133,6 +138,10 @@ export function AboutCoastmix() {
                 <strong>Benjamin Matusow</strong>, <i>Planning Department</i>
               </li>
               <li>
+                <strong>Santi Garces</strong>,{' '}
+                <i>Innovation and Technology Cabinet</i>
+              </li>
+              <li>
                 <strong>Christopher Osgood</strong>,{' '}
                 <i>Office of Climate Resilience</i>
               </li>
@@ -146,6 +155,10 @@ export function AboutCoastmix() {
               <li>
                 <strong>Nayeli Rodriguez</strong>,{' '}
                 <i>Office of Climate Resilience</i>
+              </li>
+              <li>
+                <strong>Abbie Menendez</strong>,{' '}
+                <i>Office of Emerging Technology</i>
               </li>
               <li>
                 <strong>Roua Atamaz Sibai</strong>,{' '}
@@ -182,6 +195,6 @@ export function AboutCoastmix() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
