@@ -200,9 +200,17 @@ app.use(helmet(helmetConfig))
 app.use(express.json())
 app.use(compression())
 app.use(cookieParser())
+const cookieSessionSecret = process.env.COOKIE_SESSION_SECRET
+
+if (!cookieSessionSecret && process.env.NODE_ENV === 'production') {
+  throw new Error(
+    'COOKIE_SESSION_SECRET must be set before starting the production server. See docs/docs/contributing/code/local-setup.md.'
+  )
+}
+
 app.use(
   cookieSession({
-    secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
+    secret: cookieSessionSecret || 'streetmix-development-session-secret',
     sameSite: 'strict',
   })
 )

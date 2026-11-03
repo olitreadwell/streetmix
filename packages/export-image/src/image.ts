@@ -3,8 +3,9 @@
 import path from 'node:path'
 import * as Canvas from '@napi-rs/canvas'
 
-import { TILE_SIZE } from './constants.js'
+import { BOUNDARY_WIDTH, TILE_SIZE } from './constants.js'
 import { drawEarth } from './earth.js'
+import { drawSeaLevelRise } from './sealevel.js'
 import { drawLabelBackground, drawLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
 import { drawSilhouette } from './silhouette.js'
@@ -61,9 +62,6 @@ const IMAGE_MIN_HEIGHT_WITH_STREET_NAME = IMAGE_MIN_HEIGHT + 150
 const IMAGE_BOTTOM_PADDING = 60
 const IMAGE_NAMES_WIDTHS_PADDING = 65
 
-// copy paste values witout importing for now
-const BOUNDARY_WIDTH = 360
-
 export async function makeStreetImage(
   street: StreetAPIResponse,
   options: StreetImageExportOptions
@@ -101,6 +99,7 @@ export async function makeStreetImage(
   for (const slice of street.data.street.segments) {
     occupiedWidth += slice.width
   }
+  const remainingWidth = street.data.street.width - occupiedWidth
 
   // TODO: adjust scale for these numbers early?
   // See drawSky for an example where scaled values are passed in to draw function
@@ -166,6 +165,25 @@ export async function makeStreetImage(
     // Silhouette
     if (options.silhouette) {
       drawSilhouette(ctx, baseWidth, baseHeight, options.scale)
+    }
+
+    // Flooding
+    // When turned on and Coastmix plugin data exists
+    if (options.seaLevelRise && street.data.plugins.coastmix) {
+      await drawSeaLevelRise(
+        ctx,
+        // @ts-expect-error street data on backend does not have all the same properties as on client
+        // We manually recalc remainingWidth and add it here
+        {
+          ...street.data.street,
+          remainingWidth,
+        },
+        street.data.plugins.coastmix.floodDetails,
+        street.data.plugins.coastmix.stormSurge,
+        baseWidth,
+        groundLevel,
+        options.scale
+      )
     }
 
     // Street nameplate

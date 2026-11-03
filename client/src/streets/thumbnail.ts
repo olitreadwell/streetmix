@@ -1,4 +1,5 @@
 import { drawEarth } from '@streetmix/export-image/src/earth'
+import { drawSeaLevelRise } from '@streetmix/export-image/src/sealevel'
 import {
   drawLabelBackground,
   drawLabels,
@@ -25,6 +26,7 @@ import { SAVE_AS_IMAGE_LABEL_PADDING } from './image.js'
 
 import type {
   CSSGradientDeclaration,
+  FloodDetails,
   SkyboxDefWithStyles,
   SkyboxObject,
   StreetJson,
@@ -390,7 +392,8 @@ function drawSlices(
 function drawWatermark(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   dpi: number, // pixel density of canvas
-  invert = false // if `true`, render light text for dark background
+  invert = false, // if `true`, render light text for dark background
+  isCoastmix = false
 ): void {
   const text = formatMessage(
     'export.watermark',
@@ -401,9 +404,15 @@ function drawWatermark(
       streetmixWordmark: '{streetmixWordmark}',
     }
   )
-  const wordmarkImage = invert
+  let wordmarkImage = invert
     ? images.get('/images/wordmark_white.svg')
     : images.get('/images/wordmark_black.svg')
+
+  if (isCoastmix) {
+    wordmarkImage = invert
+      ? images.get('/images/wordmark_coastmix_white.svg')
+      : images.get('/images/wordmark_coastmix_black.svg')
+  }
 
   // Separate string so that we can render a wordmark with an image
   const strings = text.replace(/{/g, '||{').replace(/}/g, '}||').split('||')
@@ -465,7 +474,10 @@ interface ThumbnailOptions {
   transparentSky: boolean
   labels: boolean
   streetName: boolean
-  watermark: boolean
+  seaLevelRise: boolean
+  floodDetails?: [FloodDetails | null, FloodDetails | null]
+  stormSurge?: boolean
+  watermark: boolean | 'coastmix'
   locale: string | null
 }
 
@@ -484,6 +496,9 @@ export async function drawStreetThumbnail(
     transparentSky, // If `true`, image is a silhouette
     labels, // If `true`, include labels (names and widths)
     streetName, // If `true`, include street nameplate
+    seaLevelRise, // If `true`, include flood effect
+    floodDetails = [null, null], // Flood details when `seaLevelRise` is true
+    stormSurge = false,
     watermark = true, // If `true`, include Streetmix watermark
     locale = 'en',
   }: ThumbnailOptions
@@ -587,6 +602,19 @@ export async function drawStreetThumbnail(
     )
   }
 
+  // Flooding
+  if (seaLevelRise) {
+    await drawSeaLevelRise(
+      ctx,
+      street,
+      floodDetails,
+      stormSurge,
+      width / multiplier,
+      groundLevel / multiplier,
+      dpi * multiplier
+    )
+  }
+
   // Street nameplate
   if (streetName) {
     const streetName =
@@ -595,7 +623,9 @@ export async function drawStreetThumbnail(
   }
 
   // Watermark
+  // `watermark` is typically a boolean but a special case value of 'coastmix'
+  // draws the Coastmix branded watermark instead.
   if (watermark) {
-    drawWatermark(ctx, dpi, !labels)
+    drawWatermark(ctx, dpi, !labels, watermark === 'coastmix')
   }
 }

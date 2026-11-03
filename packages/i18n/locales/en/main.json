@@ -269,6 +269,7 @@
       "option-labels": "Segment names and widths",
       "option-name": "Street name",
       "option-sky": "Transparent sky",
+      "option-sea-level-rise": "Sea level rise",
       "option-watermark": "Watermark",
       "option-custom-scale": "Custom scale",
       "option-custom-scale-description": "Download image up to 500% of original size.",
@@ -365,7 +366,7 @@
       "messages": {
         "start": "Select a sea level rise target to visualize flooding.",
         "need-waterfront": "Add a waterfront boundary to visualize flooding.",
-        "success": "This configuration is addressing sea level rise!",
+        "success": "This configuration addresses sea level rise!",
         "fail": "This configuration does not address sea level rise!"
       }
     }

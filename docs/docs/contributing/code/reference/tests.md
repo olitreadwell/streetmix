@@ -34,7 +34,7 @@ Front-end unit and integration tests are in the same directory as the module bei
 
 ### Integration tests are preferred over unit tests.
 
-Whenever you're writing boilerplate tests, consider writing an integration test rather than an unit test. A good way to know when you should introduce an integration test is when you need to mock a lot of modules in order to test something in isolation. This is typically a sign of side effects, and we'll have greater confidence with an integration test.
+Whenever you're writing boilerplate tests, consider writing an integration test rather than a unit test. A good way to know when you should introduce an integration test is when you need to mock a lot of modules in order to test something in isolation. This is typically a sign of side effects, and we'll have greater confidence with an integration test.
 
 This is especially the case with Redux-related actions. You shouldn't need to write a test to see if the Redux store has changed. (We already have standard, boilerplate unit tests for the store itself.) Instead, write an integration test, where instead of testing the action in isolation, test for the end result of the action.
 
