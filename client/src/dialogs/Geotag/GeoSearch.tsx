@@ -34,6 +34,10 @@ interface DownshiftPeliasProps {
 export function GeoSearch({ map, handleResults }: GeoSearchProps) {
   const inputEl = useRef<HTMLInputElement>(null)
   const intl = useIntl()
+  const clearSearchLabel = intl.formatMessage({
+    id: 'dialogs.geotag.clear-search',
+    defaultMessage: 'Clear search',
+  })
 
   function handleClickClearSearch(clearSelection: () => void) {
     clearSelection()
@@ -119,11 +123,10 @@ export function GeoSearch({ map, handleResults }: GeoSearchProps) {
             })}
           />
           {inputValue && (
-            <span
-              title={intl.formatMessage({
-                id: 'dialogs.geotag.clear-search',
-                defaultMessage: 'Clear search',
-              })}
+            <button
+              type="button"
+              title={clearSearchLabel}
+              aria-label={clearSearchLabel}
               className="geotag-input-clear"
               onClick={() => {
                 handleClickClearSearch(clearSelection)
@@ -131,7 +134,7 @@ export function GeoSearch({ map, handleResults }: GeoSearchProps) {
               // eslint-disable-next-line formatjs/no-literal-string-in-jsx
             >
               ×
-            </span>
+            </button>
           )}
           {isOpen && results?.features.length > 0 && (
             <div className="geotag-suggestions-container">

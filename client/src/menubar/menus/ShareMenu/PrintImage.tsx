@@ -12,7 +12,7 @@ export function PrintImage() {
     event.preventDefault()
 
     // Manually dispatch printing state here. Workaround for Chrome bug where
-    // calling window.print() programatically (even with a timeout) render a
+    // calling window.print() programmatically (even with a timeout) render a
     // blank image instead
     dispatch(startPrinting())
 

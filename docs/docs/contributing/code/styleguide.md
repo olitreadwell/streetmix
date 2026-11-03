@@ -133,7 +133,7 @@ We use [commitlint](https://commitlint.js.org) to automatically check your commi
 
 :::tip
 
-If your development style is to make quick, small commits whenever you've made progress, there's no need to change your development workflow right away to adopt the Conventional Commit style. You can always clean up the commit history on your branch when you're ready to make a pull request. [You can use git rebase to do this (tutorial)](https://egghead.io/lessons/tools-practical-git-clean-up-commits-with-git-rebase).
+If your development style is to make quick, small commits whenever you've made progress, there's no need to change your development workflow right away to adopt the Conventional Commit style. You can always clean up the commit history on your branch when you're ready to make a pull request. [You can use git rebase to do this (tutorial)](https://git-scm.com/book/en/v2/Git-Branching-Rebasing).
 
 :::
 

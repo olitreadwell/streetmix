@@ -7,13 +7,12 @@ import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { updateSettings } from '~/src/store/slices/settings.js'
 import { Button } from '~/src/ui/Button.js'
 import { Checkbox } from '~/src/ui/Checkbox.js'
-import { Icon } from '~/src/ui/Icon.js'
-import { Tooltip } from '~/src/ui/Tooltip.js'
 import { Terms } from '~/src/app/Terms.js'
 import { getStreetImage } from '~/src/streets/image.js'
 import { normalizeSlug } from '~/src/util/helpers.js'
 import { Dialog } from '../Dialog.js'
 import { CustomScale } from './CustomScale.js'
+import { WatermarkOption } from './WatermarkOption.js'
 import './SaveAsImageDialog.css'
 
 const DEFAULT_IMAGE_DPI = 2
@@ -28,17 +27,23 @@ export function SaveAsImageDialog() {
   const [downloadDataUrl, setDownloadDataUrl] = useState<string>()
   const [baseDimensions, setBaseDimensions] = useState({})
   const locale = useSelector((state) => state.locale.locale)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const {
     saveAsImageTransparentSky: transparentSky,
     saveAsImageSegmentNamesAndWidths: segmentNames,
     saveAsImageStreetName: streetName,
+    saveAsImageSeaLevelRise: seaLevelRise,
   } = useSelector((state) => state.settings)
-  // even if watermarks are off, override if user isn't subscribed
+  // even if watermarks are off, override if user isn't subscribed, or we are
+  // in coastmix mode
   const watermark = useSelector(
-    (state) => state.settings.saveAsImageWatermark || !state.user.isSubscriber
+    (state) =>
+      state.settings.saveAsImageWatermark ||
+      !state.user.isSubscriber ||
+      coastmixMode
   )
   const street = useSelector((state) => state.street)
-  const isSubscriber = useSelector((state) => state.user.isSubscriber)
+  const { floodDetails, stormSurge } = useSelector((state) => state.coastmix)
   const intl = useIntl()
   const dispatch = useDispatch()
 
@@ -65,7 +70,14 @@ export function SaveAsImageDialog() {
       await updatePreview()
     }, 100)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transparentSky, segmentNames, streetName, watermark, isNewExport])
+  }, [
+    transparentSky,
+    segmentNames,
+    streetName,
+    seaLevelRise,
+    watermark,
+    isNewExport,
+  ])
 
   // Same as above but ONLY update preview if we're using the new export
   // pipeline, and the scale changes
@@ -110,8 +122,8 @@ export function SaveAsImageDialog() {
     dispatch(updateSettings({ saveAsImageStreetName: event.target.checked }))
   }
 
-  const toggleWatermark = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(updateSettings({ saveAsImageWatermark: event.target.checked }))
+  const toggleSeaLevelRise = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateSettings({ saveAsImageSeaLevelRise: event.target.checked }))
   }
 
   const toggleNewExport = () => {
@@ -149,7 +161,7 @@ export function SaveAsImageDialog() {
     if (isNewExport) {
       const filename = makeFilename()
       saveAs(
-        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`,
+        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&seaLevelRise=${seaLevelRise}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`,
         filename
       )
       window.setTimeout(() => {
@@ -190,8 +202,11 @@ export function SaveAsImageDialog() {
       transparentSky,
       segmentNames,
       streetName,
+      coastmixMode ? seaLevelRise : false,
+      floodDetails,
+      stormSurge,
       DEFAULT_IMAGE_DPI * scale,
-      watermark,
+      coastmixMode ? watermark && 'coastmix' : watermark,
       locale
     )
   }
@@ -201,7 +216,7 @@ export function SaveAsImageDialog() {
     // to the API export directly, then skip the rest of the function
     if (isNewExport) {
       setDownloadDataUrl(
-        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`
+        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&seaLevelRise=${seaLevelRise}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`
       )
       return
     }
@@ -215,9 +230,8 @@ export function SaveAsImageDialog() {
       height: imageCanvas.current?.height,
     })
 
-    // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() is only likely to appear if a SecurityError is
-    // thrown from reading the canvas.
+    // thrown from reading the canvas, e.g. "tainted" with external images
     try {
       imageCanvas.current?.toBlob((blob) => {
         if (blob) {
@@ -285,37 +299,16 @@ export function SaveAsImageDialog() {
                 />
               </Checkbox>
 
-              {isSubscriber ? (
-                <Checkbox onChange={toggleWatermark} checked={watermark}>
+              {coastmixMode && (
+                <Checkbox onChange={toggleSeaLevelRise} checked={seaLevelRise}>
                   <FormattedMessage
-                    id="dialogs.save.option-watermark"
-                    defaultMessage="Watermark"
+                    id="dialogs.save.option-sea-level-rise"
+                    defaultMessage="Sea level rise"
                   />
                 </Checkbox>
-              ) : (
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: 'plus.locked.sub',
-                    // Default message ends with a Unicode-only left-right order mark
-                    // to allow for proper punctuation in `rtl` text direction
-                    // This character is hidden from editors by default!
-                    defaultMessage: 'Upgrade to Streetmix+ to use!‎',
-                  })}
-                >
-                  <Checkbox
-                    onChange={toggleWatermark}
-                    checked={watermark}
-                    disabled={!isSubscriber}
-                  >
-                    <FormattedMessage
-                      id="dialogs.save.option-watermark"
-                      defaultMessage="Watermark"
-                    />
-                    &nbsp;
-                    <Icon name="lock" />
-                  </Checkbox>
-                </Tooltip>
               )}
+
+              {!coastmixMode && <WatermarkOption />}
             </div>
             {street.weather !== null && (
               <div className="save-as-image-weather-alert">
@@ -361,11 +354,13 @@ export function SaveAsImageDialog() {
                 </div>
               )}
             </div>
-            <CustomScale
-              scale={scale}
-              baseDimensions={baseDimensions}
-              onChange={handleChangeScale}
-            />
+            {!coastmixMode && (
+              <CustomScale
+                scale={scale}
+                baseDimensions={baseDimensions}
+                onChange={handleChangeScale}
+              />
+            )}
             <div className="save-as-image-download">
               {errorMessage2 && (
                 <span className="save-as-image-too-large-error">
