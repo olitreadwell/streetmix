@@ -59,6 +59,9 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
         transparentSky: false,
         labels: false,
         streetName: false,
+        seaLevelRise: true,
+        floodDetails: street.data.plugins.coastmix?.floodDetails,
+        stormSurge: street.data.plugins.coastmix?.stormSurge,
         watermark: false,
         locale: null,
       })
